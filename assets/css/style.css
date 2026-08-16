@@ -1,0 +1,29 @@
+/* Shared styling for all session decks */
+
+.reveal .slides section {
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85);
+}
+
+.reveal .slides section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: -1;
+}
+
+.reveal .slides section.title-slide h1 {
+  font-size: 1.6em;
+  margin-bottom: 0.8em;
+}
+
+.reveal .slides section.title-slide p {
+  font-size: 0.75em;
+  margin: 0.2em 0;
+}
+
+.reveal .slides section.title-slide .contact-note {
+  margin-top: 0.8em;
+  font-style: italic;
+  opacity: 0.9;
+}
