@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7f4ec"/>
+  <path d="M0 720 Q 500 690 900 715 T 1600 700 L 1600 900 L 0 900 Z" fill="#e3edf3"/>
+
+  <g stroke="#2c4356" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- contrail -->
+    <path d="M60 560 L 320 520" stroke="#c7d6e2" stroke-width="10" opacity="0.7"/>
+    <!-- fuselage with nose intake -->
+    <path d="M320 500 C 260 505 240 515 240 522 C 240 529 260 539 320 544 C 500 555 900 550 1150 528 C 1220 522 1260 517 1290 522 C 1260 527 1220 532 1150 526 C 900 504 500 499 320 500 Z" fill="#d7e3ec"/>
+    <ellipse cx="248" cy="522" rx="14" ry="16" fill="#f7f4ec"/>
+    <!-- canopy -->
+    <path d="M540 500 Q 610 468 680 500 L 660 515 Q 605 492 560 515 Z" fill="#c7d6e2"/>
+    <!-- swept wings -->
+    <path d="M620 528 L 420 640 L 500 652 L 720 552 Z" fill="#d7e3ec"/>
+    <path d="M900 528 L 1100 630 L 1020 645 L 830 552 Z" fill="#d7e3ec"/>
+    <!-- swept tail -->
+    <path d="M1180 505 L 1290 435 L 1300 452 L 1210 518 Z" fill="#d7e3ec"/>
+    <path d="M1150 528 L 1290 515 L 1290 528 L 1160 540 Z" fill="#d7e3ec"/>
+  </g>
+</svg>

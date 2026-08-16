@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7f4ec"/>
+  <g fill="#c9b98a">
+    <circle cx="200" cy="150" r="4"/>
+    <circle cx="1420" cy="170" r="4"/>
+    <circle cx="1500" cy="360" r="3"/>
+    <circle cx="120" cy="330" r="3"/>
+    <circle cx="760" cy="100" r="3"/>
+  </g>
+  <!-- small earth in the black sky -->
+  <circle cx="1300" cy="200" r="46" fill="#e3edf3" stroke="#31465f" stroke-width="4"/>
+  <path d="M1270 175 Q 1300 195 1280 220" fill="none" stroke="#31465f" stroke-width="3" opacity="0.5"/>
+
+  <!-- lunar surface -->
+  <path d="M0 650 Q 400 610 800 645 T 1600 630 L 1600 900 L 0 900 Z" fill="#e6e1d2"/>
+  <g stroke="#c8c0a8" stroke-width="3" fill="none">
+    <ellipse cx="300" cy="700" rx="70" ry="14"/>
+    <ellipse cx="1150" cy="760" rx="100" ry="18"/>
+    <ellipse cx="650" cy="820" rx="60" ry="12"/>
+  </g>
+
+  <g stroke="#31465f" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- footprints trailing -->
+    <ellipse cx="500" cy="760" rx="10" ry="16" fill="#c8c0a8" stroke="none"/>
+    <ellipse cx="560" cy="740" rx="10" ry="16" fill="#c8c0a8" stroke="none"/>
+    <ellipse cx="620" cy="715" rx="10" ry="16" fill="#c8c0a8" stroke="none"/>
+
+    <!-- flag pole -->
+    <line x1="1080" y1="640" x2="1080" y2="480"/>
+    <path d="M1080 480 L 1190 500 L 1080 520 Z" fill="#c9a24b"/>
+
+    <!-- astronaut figure -->
+    <circle cx="820" cy="560" r="34" fill="#efe8d6"/>
+    <path d="M804 552 Q 820 540 836 552 Q 836 568 820 572 Q 804 568 804 552 Z" fill="#c7d6e2"/>
+    <rect x="792" y="590" width="56" height="70" rx="14" fill="#efe8d6"/>
+    <rect x="780" y="600" width="20" height="40" rx="8" fill="#e7ddc4"/>
+    <line x1="800" y1="660" x2="790" y2="710"/>
+    <line x1="840" y1="660" x2="850" y2="710"/>
+    <line x1="800" y1="600" x2="760" y2="640"/>
+    <line x1="848" y1="600" x2="900" y2="580"/>
+  </g>
+</svg>

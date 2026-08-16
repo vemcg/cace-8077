@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7f4ec"/>
+  <rect x="0" y="640" width="1600" height="260" fill="#efe6cf"/>
+  <path d="M0 640 Q 400 610 800 640 T 1600 640" fill="none" stroke="#d8c9a0" stroke-width="3"/>
+
+  <g stroke="#3a4a5c" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- lower wing -->
+    <rect x="480" y="560" width="640" height="60" fill="#e7ddc4"/>
+    <!-- upper wing -->
+    <rect x="480" y="430" width="640" height="60" fill="#efe8d6"/>
+    <!-- struts between wings -->
+    <line x1="540" y1="490" x2="540" y2="560"/>
+    <line x1="680" y1="490" x2="680" y2="560"/>
+    <line x1="820" y1="490" x2="820" y2="560"/>
+    <line x1="960" y1="490" x2="960" y2="560"/>
+    <line x1="1080" y1="490" x2="1080" y2="560"/>
+    <!-- forward elevator (canard) on outriggers -->
+    <line x1="480" y1="490" x2="330" y2="470"/>
+    <line x1="480" y1="560" x2="330" y2="540"/>
+    <rect x="270" y="465" width="80" height="80" fill="#efe8d6"/>
+    <!-- rear rudders on outriggers -->
+    <line x1="1120" y1="490" x2="1260" y2="440"/>
+    <line x1="1120" y1="560" x2="1260" y2="590"/>
+    <rect x="1250" y="440" width="18" height="150" fill="#e7ddc4"/>
+    <!-- pilot prone at center -->
+    <ellipse cx="700" cy="600" rx="55" ry="18" fill="#c9a24b" stroke="none"/>
+    <!-- engine block -->
+    <rect x="760" y="585" width="60" height="45" fill="#8c7a56" stroke="none"/>
+    <!-- pusher propellers -->
+    <circle cx="900" cy="605" r="6" fill="#3a4a5c" stroke="none"/>
+    <ellipse cx="900" cy="605" rx="70" ry="10" fill="none" stroke="#8c7a56" stroke-width="4"/>
+    <circle cx="1000" cy="605" r="6" fill="#3a4a5c" stroke="none"/>
+    <ellipse cx="1000" cy="605" rx="70" ry="10" fill="none" stroke="#8c7a56" stroke-width="4"/>
+    <!-- skids -->
+    <path d="M520 620 Q 560 660 620 622"/>
+    <path d="M900 620 Q 940 660 1000 622"/>
+  </g>
+</svg>

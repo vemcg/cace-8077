@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7f4ec"/>
+  <path d="M0 720 Q 500 690 900 715 T 1600 700 L 1600 900 L 0 900 Z" fill="#e3edf3"/>
+
+  <g stroke="#31465f" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- fuselage -->
+    <path d="M340 520 C 420 495 700 480 1080 495 C 1180 499 1240 510 1280 520 C 1240 532 1180 542 1080 546 C 700 560 420 545 340 520 Z" fill="#dbe6ee"/>
+    <!-- chin scoop (signature ventral radiator) -->
+    <path d="M560 545 Q 620 590 720 548" fill="#c7d6e2"/>
+    <!-- spinner + prop -->
+    <ellipse cx="330" cy="520" rx="26" ry="20" fill="#31465f"/>
+    <line x1="300" y1="440" x2="360" y2="600"/>
+    <line x1="300" y1="600" x2="360" y2="440"/>
+    <!-- bubble canopy -->
+    <path d="M760 480 Q 840 440 920 480 L 900 500 Q 830 470 780 500 Z" fill="#c7d6e2"/>
+    <!-- wings -->
+    <path d="M700 520 L 470 640 L 560 655 L 780 545 Z" fill="#dbe6ee"/>
+    <path d="M900 520 L 1150 630 L 1065 650 L 850 545 Z" fill="#dbe6ee"/>
+    <!-- tail fin -->
+    <path d="M1200 500 L 1300 420 L 1310 440 L 1230 515 Z" fill="#dbe6ee"/>
+    <!-- horizontal stabilizer -->
+    <path d="M1180 520 L 1300 500 L 1300 515 L 1190 535 Z" fill="#dbe6ee"/>
+  </g>
+</svg>
