@@ -8,7 +8,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
   z-index: -1;
 }
 
@@ -33,4 +33,58 @@
   margin-top: 0.8em;
   font-style: italic;
   opacity: 0.85;
+}
+
+/* Revised title-slide layout: small course title + large session title up top,
+   bold contact block anchored lower-center. Opt-in via .title-slide-top /
+   .title-slide-contact wrappers so decks still on the old flat markup are unaffected. */
+
+.reveal .slides section.title-slide:has(.title-slide-top) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 3rem 2rem 4rem;
+}
+
+.reveal .slides section.title-slide .title-slide-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reveal .slides section.title-slide .course-title {
+  font-size: 1.2em;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.6em;
+  opacity: 0.8;
+}
+
+.reveal .slides section.title-slide .session-title {
+  font-size: 1.9em;
+  font-weight: 700;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.reveal .slides section.title-slide .title-slide-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reveal .slides section.title-slide .title-slide-contact p {
+  font-size: 0.63em;
+  font-weight: 700;
+  margin: 0.18em 0;
+}
+
+.reveal .slides section.title-slide .title-slide-contact .contact-note {
+  font-size: 0.5em;
+  font-weight: 600;
+  font-style: italic;
+  opacity: 0.85;
+  margin-top: 0.25em;
 }
