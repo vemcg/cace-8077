@@ -175,6 +175,19 @@
   margin-top: 0.25em;
 }
 
+/* Follow-along URL for students -- deliberately bigger/bolder than the
+   presenter's own contact info above it, since this is the line the whole
+   room needs to be able to read and type in. */
+.reveal .slides section.title-slide .title-slide-contact .follow-along-url {
+  margin-top: 0.9em;
+  padding: 0.35em 0.7em;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.7em;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 0.3em;
+}
+
 /* Bottom dot strip, one dot per slide (added by assets/js/deck.js). Click to
    jump to that slide. Red = that slide's content overflows the 900px slide
    height and needs trimming -- an authoring aid, not shown to students. */

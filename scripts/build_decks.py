@@ -90,6 +90,10 @@ PRESENTER_EMAIL = "VernMcGeorge@gmail.com"
 PRESENTER_PHONE = "408-256-1849"
 CONTACT_NOTE = "Until you're in my contacts list, leave a text or voicemail."
 
+# Published GitHub Pages site -- shown on each deck's title slide as the
+# follow-along URL for that session (PUBLIC_BASE_URL + "/sessions/<slug>/").
+PUBLIC_BASE_URL = "https://vemcg.github.io/cace-8077"
+
 
 def escape_html(text):
     return (
@@ -312,6 +316,7 @@ def render_section(background, inner_html, extra_class="", section_id=None):
 
 
 def build_deck_html(session_num, topic, content_slides, background):
+    slide_url = f"{PUBLIC_BASE_URL}/sessions/{SESSION_SLUGS[session_num]}/"
     title_slide_inner = f"""        <div class="title-slide-top">
           <p class="course-title">{COURSE_TITLE}</p>
           <h1 class="session-title">{topic}</h1>
@@ -321,6 +326,7 @@ def build_deck_html(session_num, topic, content_slides, background):
           <p class="contact-email">{PRESENTER_EMAIL}</p>
           <p class="contact-phone">{PRESENTER_PHONE}</p>
           <p class="contact-note">{CONTACT_NOTE}</p>
+          <p class="follow-along-url">Follow along: {slide_url}</p>
         </div>"""
 
     sections = [render_section(background, title_slide_inner, extra_class="title-slide")]
