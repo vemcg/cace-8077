@@ -86,6 +86,22 @@
 
 ---
 
+## Mobile App
+
+- A native or cross-platform app for iPhone, iPad, or Android
+- Could be a mobile-first version of any idea above — a game, a tracker, a collaboration tool
+- **Good fit if:** you want it living on a home screen, or need device features like camera, location, or notifications
+
+---
+
+## Something Completely Different
+
+- It doesn't have to be an app at all — if the AI can read and edit the file format, it can help you build with it
+- **Example:** design a circuit board in ***[KiCad](https://www.kicad.org/)*** — schematics and PCB layouts are just text files under the hood, the same way code is
+- **Good fit if:** you want to learn something new outside pure software, as long as what you're working with is text-based
+
+---
+
 ## Your *Far Horizons* Activity
 
 - Skim back over the categories — or bring an idea that's entirely your own

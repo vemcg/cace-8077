@@ -30,7 +30,7 @@ IMAGES = {
     "curtiss-jenny": "crop",
     "pan-am-clipper": "crop",
     "p51-mustang": "crop",
-    "bell-x2": ("crop", 0.85),
+    "bell-x2": ("crop", 1.0),
     "f86-sabre": "crop",
     "f100-super-sabre": "crop",
     "apollo-capsule": "contain",
