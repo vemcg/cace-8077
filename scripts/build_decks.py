@@ -332,7 +332,8 @@ def build_deck_html(session_num, topic, content_slides, background):
     sections = [render_section(background, title_slide_inner, extra_class="title-slide")]
 
     for slide_html, slide_id in content_slides:
-        sections.append(render_section(background, slide_html, section_id=slide_id))
+        wrapped = f'        <div class="slide-content">\n{slide_html}\n        </div>'
+        sections.append(render_section(background, wrapped, section_id=slide_id))
 
     sections_html = "\n\n".join(sections)
 

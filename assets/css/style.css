@@ -29,10 +29,47 @@
   font-weight: 800;
 }
 
-/* Content-slide body text (not the title slide -- that has its own rules
-   below). The default reveal.js theme weight is too light to read cleanly
-   over a photo background, and its default centered/bulleted list styling
-   doesn't hold up well either -- rebuilt below as a left-aligned column. */
+/* Content slides (not the title slide -- that has its own rules below).
+   reveal.js's default center:true shrinks a section down to fit its content
+   and centers that smaller box within the slide -- which left the ::before
+   tint above only covering that box instead of the full photo. Forcing the
+   section itself to the full 900px height (Reveal.initialize sets
+   center:false to match) fixes that.
+
+   Scrolling lives on the inner .slide-content wrapper (added by
+   scripts/build_decks.py around every content slide's body), not on the
+   section -- if the section itself scrolled, the ::before tint (positioned
+   relative to it) would scroll along with the text and uncover bare photo
+   at the edges. Keeping the section static and only the wrapper scrollable
+   means the tint always covers the full slide regardless of scroll
+   position. The first/last-child auto-margins on the wrapper vertically
+   center its content without the "can't scroll to the top" bug that
+   justify-content:center has once a slide overflows. */
+
+.reveal .slides section:not(.title-slide) {
+  height: 100%;
+}
+
+.reveal .slides section:not(.title-slide) .slide-content {
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 2rem 4rem;
+}
+
+.reveal .slides section:not(.title-slide) .slide-content > :first-child {
+  margin-top: auto;
+}
+
+.reveal .slides section:not(.title-slide) .slide-content > :last-child {
+  margin-bottom: auto;
+}
+
+/* The default reveal.js theme weight is too light to read cleanly over a
+   photo background, and its default centered/bulleted list styling doesn't
+   hold up well either -- rebuilt below as a left-aligned column. */
 
 .reveal .slides section:not(.title-slide) p,
 .reveal .slides section:not(.title-slide) li {
@@ -52,13 +89,13 @@
 
 .reveal .slides section:not(.title-slide) ul,
 .reveal .slides section:not(.title-slide) blockquote,
-.reveal .slides section:not(.title-slide) > p {
+.reveal .slides section:not(.title-slide) .slide-content > p {
   width: 100%;
   max-width: 42em;
   text-align: left;
 }
 
-.reveal .slides section:not(.title-slide) > p {
+.reveal .slides section:not(.title-slide) .slide-content > p {
   margin: 0.25em 0;
 }
 
@@ -126,7 +163,6 @@
    .title-slide-contact wrappers so decks still on the old flat markup are unaffected. */
 
 .reveal .slides section.title-slide:has(.title-slide-top) {
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -187,7 +223,7 @@
   margin: 0;
   padding: 0.3em 0.6em;
   white-space: nowrap;
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 0.48em;
   font-weight: 700;
   background: rgba(255, 255, 255, 0.55);
