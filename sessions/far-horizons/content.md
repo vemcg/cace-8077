@@ -39,7 +39,7 @@
 ## Collaboration Tool
 
 - Something multiple people use *together*
-- Shared to-do list, team brainstorming board (like ***[CardStorming](https://cardstorming.vernmcgeorge.com/)*** — the very tool you'll use today), shared calendar or scheduler
+- Shared to-do list, team brainstorming board (like ***[CardStorming](https://cardstorming.vernmcgeorge.com/#mt67bnzaj1japkh00)*** — the very tool you'll use today), shared calendar or scheduler
 - **Good fit if:** you're solving a problem you've hit with friends, family, or teammates
 
 ---
@@ -113,7 +113,7 @@
 ## Your *Far Horizons* Activity
 
 - Skim back over the categories — or bring an idea that's entirely your own
-- Brainstorm specific ideas within one (or blend two) on ***[CardStorming](https://cardstorming.vernmcgeorge.com/)***
+- Brainstorm specific ideas in ***[CardStorming](https://cardstorming.vernmcgeorge.com/#mt67bnzaj1japkh00)***
 - Narrow down to the one idea you're most excited to build
-- Write a one-sentence description, plus 3 must-have features
+- Give it a name, write a short description, and list must-have features
 - We'll come back to this project in later sessions

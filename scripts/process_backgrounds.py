@@ -22,15 +22,18 @@ CANVAS_W, CANVAS_H = 1600, 900
 # tall/square shots where cropping would cut off the subject. A ("crop", bias)
 # tuple crops off-center instead: bias is 0.0-1.0 along whichever axis gets
 # cropped (top/left at 0.0, centered at 0.5, bottom/right at 1.0) -- use it
-# when the subject isn't centered in the original photo (e.g. bell-x2, where
-# the dropped aircraft is low in the frame and a center-crop cuts it off).
+# when the subject sits off-center in the original photo and a plain
+# center-crop would cut it off. Prefer picking/recropping a source photo
+# with more margin around the subject over reaching for an extreme bias --
+# a subject pinned right at one edge leaves no room for on-slide UI (the
+# follow-along URL, the slide-dots) to sit near that edge without overlapping it.
 IMAGES = {
     "wright-flyer": "crop",
     "spirit-of-st-louis": "crop",
     "curtiss-jenny": "crop",
     "pan-am-clipper": "crop",
     "p51-mustang": "crop",
-    "bell-x2": ("crop", 1.0),
+    "bell-x2": "crop",
     "f86-sabre": "crop",
     "f100-super-sabre": "crop",
     "apollo-capsule": "contain",
