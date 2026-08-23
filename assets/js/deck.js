@@ -5,7 +5,7 @@
 // slide height and needs trimming.
 
 document.addEventListener("DOMContentLoaded", function () {
-  Reveal.initialize({ hash: true, width: 1600, height: 900 });
+  Reveal.initialize({ hash: true, width: 1600, height: 900, margin: 0 });
 
   document.addEventListener("keydown", function (e) {
     if (e.key !== "f" && e.key !== "F") return;

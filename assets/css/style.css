@@ -126,12 +126,13 @@
    .title-slide-contact wrappers so decks still on the old flat markup are unaffected. */
 
 .reveal .slides section.title-slide:has(.title-slide-top) {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  padding: 3rem 2rem 4rem;
+  padding: 5rem 2rem 4.5rem;
 }
 
 .reveal .slides section.title-slide .title-slide-top {
@@ -175,14 +176,19 @@
   margin-top: 0.25em;
 }
 
-/* Follow-along URL for students -- deliberately bigger/bolder than the
-   presenter's own contact info above it, since this is the line the whole
-   room needs to be able to read and type in. */
-.reveal .slides section.title-slide .title-slide-contact .follow-along-url {
-  margin-top: 0.9em;
-  padding: 0.35em 0.7em;
+/* Follow-along URL for students -- pinned near the very bottom of the title
+   slide (just above the slide-dots row), detached from the presenter's
+   contact block above it so there's always a clear gap between the two. */
+.reveal .slides section.title-slide .follow-along-url {
+  position: absolute;
+  left: 50%;
+  bottom: 42px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.3em 0.6em;
+  white-space: nowrap;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 0.7em;
+  font-size: 0.48em;
   font-weight: 700;
   background: rgba(255, 255, 255, 0.55);
   border-radius: 0.3em;
