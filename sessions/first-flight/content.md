@@ -22,7 +22,7 @@
 
 - Who am I and why am I here?
   - Retired software engineer
-  - Don't miss the work, do miss the creativity
+  - Don't miss the drudgery or the work, do miss the creativity
   - Tried AI, liked it, and I want to share the fun
 - Who are you?
   - What experience do you have with AI and/or programming?
@@ -36,10 +36,10 @@ As a professional programmer:
 - You need to know many things (languages, tools, and processes) in great detail
 - This is especially true collaborating in teams at scale
 But as a hobbiest/tinkerer using AI:
-- You need to know what you want and describe it clearly
+- You need to know what you want and how to describe it clearly
 - You need to understand broad concepts about a few things
 - You can ask the AI to teach you what you don't know
-Let's have some fun, shall we?
+So, let's have some fun, shall we?
 
 ---
 
@@ -55,7 +55,7 @@ Let's have some fun, shall we?
 
 ## Pick an Arcade Game 
 
-Arcade/game clones (1970s–early 80s vibe)
+Arcade/game clones (1970s–early 80s vibe). Suggestions:
 
 - Pong (1972) — two paddles, one ball, dead simple physics
 - Snake — grid-based, no external assets needed
@@ -63,6 +63,7 @@ Arcade/game clones (1970s–early 80s vibe)
 - Space Invaders — rows of enemies descending, player shoots up
 - Missile Command — draw trajectories, click to intercept
 - Asteroids — simple physics/rotation, more ambitious if a student wants a stretch goal
+- Space War - like Asteroids, but two sets of controls, a central planet, and an opponent to fight
 
 ---
 
@@ -77,7 +78,7 @@ Arcade/game clones (1970s–early 80s vibe)
 
 ## Pick a Code Sandbox
 
-- **[CodePen](https://codepen.io)**: free to view/run/fork anonymously; free account (email or SSO) needed to save your own pen permanently. No credit-based throttling
+- **[CodePen](https://codepen.io)**: free to view/run/fork anonymously; free account needed to save your own pen permanently. No credit-based throttling
 - **[JSFiddle](https://jsfiddle.net)**: similar — free, some anonymous use, but saving reliably needs a free login. No credit system either.
 - **[CodeSandbox](https://codesandbox.io)**: as above — as long as students pick the plain HTML/CSS/JS template (not a Node/React dev server sandbox), it stays in "Browser Sandbox" territory and won't hit the credit-consuming VM tier at all. Free account still required to save.
 

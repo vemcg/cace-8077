@@ -15,7 +15,7 @@
 
 - Your arcade game proved you can go from idea to working code with an AI partner
 - Your **real project** doesn't have to be a game at all
-- The next several slides are one possible *category* each — not a menu you must pick from, just fuel for brainstorming
+- The next several slides are one possible *category* each — not a menu you must pick from, just fuel for brainstorming (which I hope you do in ***[CardStorming](https://cardstorming.vernmcgeorge.com/#mt67bnzaj1japkh00)***)
 - If you already know what you want to build, skip ahead and start sketching it
 
 ---
@@ -48,6 +48,14 @@
 
 - Budget tracker, expense splitter for shared costs, savings-goal tracker
 - **Good fit if:** numbers and simple math motivate you
+
+---
+
+## Data Science Project
+
+- Pull in a dataset — sports stats, weather, prices, your own tracked habits — and look for patterns in it
+- Could end up as a chart, a dashboard, or just a script that answers a question you're curious about
+- **Good fit if:** you like to measure and understand how the world actually works
 
 ---
 

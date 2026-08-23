@@ -14,16 +14,17 @@
 
 ## Tooling Up
 
-- You can continue doing reasonable work the way you have been uh with no tools and no expenses
-- It gets a lot easier if you can install tools on your laptop
-- It gets even easier if you're willing to Incur some minor expenses (~20/month)
+- You can continue doing reasonable work the way you have been with no tools and no expenses
+- It gets easier if you can install tools on your laptop
+- It gets a lot easier if you're willing to incur some minor expenses (~20/month)
+- I've been hitting AI pretty hard and have spent $200 up front for a year plus about $50 in "extra usage" since last November.
 
 ---
 
 ## Must Have Free Tools
 
 The two immediate "must haves" are:
-- **An Integrated Development Environment (IDE)** - This is Where you manage your projects, where you edit your code, and where you get and save your work. You can do this with an editor such as Notepad (or Mac/Linux equivalent) but it's incredibly painful.
+- **An Integrated Development Environment (IDE)** - This is where you manage your projects, where you edit your code, and where you get and save your work. You can do this with an editor such as Notepad (or Mac/Linux equivalent) but it's incredibly painful.
 - **A Version Control System** - This is where you keep track of versions of your work, save working results, and incrementally improve your project. You can do this with File Explorer (or Mac/Linux equivalent) by maintaining folders for different versions, but it's incredibly painful
 
 I use **[Visual Studio Code](https://code.visualstudio.com/download?_exp_download=fb315fc982)** and **[git](https://git-scm.com/install/)**. I strongly recommend **git** especially if you are going to allow the AI to help you with it.
@@ -34,7 +35,7 @@ I use **[Visual Studio Code](https://code.visualstudio.com/download?_exp_downloa
 
 Adding an AI Coding partner to your IDE is how you offload most of technical details to AI by allowing the AI to edit your files directly and to interact with other tools such as **git**.
 
-All four of the AI options listed in the last session (and no doubt many more) offer such integration. The following slides written by each of these AIs list feratures, costs, and links to get started.
+All four of the AI options listed in the last session (and no doubt many more) offer such integration. The following slides written by each of these AIs list their features, costs, and links to get started.
 
 - **[Claude](#/Claude)** — strong at coding, free tier available, requires login (email/Google/Apple).
 - **[ChatGPT](#/OpenAI)** — the default most students already know, free tier available, requires login.
