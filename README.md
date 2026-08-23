@@ -27,7 +27,7 @@ sessions/
     content.md       # edit this — the session topic and slide content
     index.html         # generated from content.md, don't hand-edit
   age-of-exploration/   # session 2
-  edwpygz7/              # session 3 — still "Topic TBD", so a random placeholder slug
+  x7q2m9/                # session 3 — still "Topic TBD", so a random placeholder slug
   ...                    # sessions 4-8: same pattern, see SESSION_SLUGS below
   _template/         # content.md stub to copy for a new session
 scripts/
@@ -71,7 +71,7 @@ This rewrites every `sessions/<slug>/index.html` from its `content.md`, and rege
 
 ## Session URLs & access control
 
-Sessions are *not* at predictable paths like `session-01`, `session-02`, ... — each one lives at `sessions/<slug>/`, where the slug is its real topic, kebab-cased (`sessions/first-flight/`, `sessions/age-of-exploration/`). Nobody can reach a session by guessing or incrementing a URL; they need to already know its title. Sessions still marked "Topic TBD" get a random placeholder slug (e.g. `sessions/edwpygz7/`) instead, so even their *order* isn't exposed before you've settled on a real title.
+Sessions are *not* at predictable paths like `session-01`, `session-02`, ... — each one lives at `sessions/<slug>/`, where the slug is its real topic, kebab-cased (`sessions/first-flight/`, `sessions/age-of-exploration/`). Nobody can reach a session by guessing or incrementing a URL; they need to already know its title. Sessions still marked "Topic TBD" get a random placeholder slug (e.g. `sessions/x7q2m9/`) instead, so even their *order* isn't exposed before you've settled on a real title.
 
 The `SESSION_SLUGS` dict in `scripts/build_decks.py` is the source of truth for the mapping. To finalize a placeholder once you've written the real title:
 
@@ -138,13 +138,15 @@ Copy `sessions/_template/content.md` into a new `sessions/<slug>/content.md` (a 
 
 ## Hosting on GitHub Pages
 
-This repo is public, and is meant to be served with GitHub Pages: **Settings > Pages > Deploy from a branch**, branch `main`, folder `/ (root)`. Each session deck is then live at:
+This repo is public, and is meant to be served with GitHub Pages: **Settings > Pages > Deploy from a branch**, branch `master`, folder `/ (root)`. Each session deck is then live at:
 
 ```
 https://<your-username>.github.io/<repo-name>/sessions/<slug>/
 ```
 
 There's no published entry point that lists all of them — the root of the site has no `index.html` (it's gitignored, see above), so it 404s unless you already have a specific session's link. Share individual session links with students as you release them.
+
+The repo also has a `.nojekyll` file at its root. Without it, GitHub Pages runs the site through Jekyll, and Jekyll's default theme auto-generates a homepage *from README.md* when there's no `index.html` — which would put this README (including its example slug syntax) on the public site root. `.nojekyll` disables that, so the site is served as plain static files and the root genuinely 404s. Don't remove it.
 
 ## Setting up as a GitHub template
 
