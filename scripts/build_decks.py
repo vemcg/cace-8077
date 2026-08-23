@@ -49,7 +49,7 @@ SESSION_BACKGROUNDS = {
     1: "wright-flyer.jpg",
     2: "spirit-of-st-louis.jpg",
     3: "pan-am-clipper.jpg",
-    4: "bell-x2.jpg",
+    4: "x15-launch.jpg",
     5: "f100-super-sabre.jpg",
     6: "apollo-capsule.jpg",
     7: "gemini-capsule.jpg",
