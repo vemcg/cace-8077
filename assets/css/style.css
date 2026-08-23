@@ -174,3 +174,43 @@
   opacity: 0.85;
   margin-top: 0.25em;
 }
+
+/* Bottom dot strip, one dot per slide (added by assets/js/deck.js). Click to
+   jump to that slide. Red = that slide's content overflows the 900px slide
+   height and needs trimming -- an authoring aid, not shown to students. */
+
+.slide-dots {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  gap: 0.45em;
+  pointer-events: none;
+}
+
+.slide-dot {
+  pointer-events: auto;
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(31, 45, 58, 0.35);
+  cursor: pointer;
+}
+
+.slide-dot.active {
+  background: rgba(31, 45, 58, 0.9);
+  transform: scale(1.3);
+}
+
+.slide-dot.overflow {
+  background: #c0392b;
+}
+
+.slide-dot.overflow.active {
+  background: #e74c3c;
+}

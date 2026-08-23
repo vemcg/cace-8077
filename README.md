@@ -132,6 +132,10 @@ npx serve .                     # Node
 
 Then open `http://localhost:8000/index.html` for the local master index, or `http://localhost:8000/sessions/first-flight/index.html` for a deck.
 
+**Presenting:** each deck is sized to exactly match its 1600&times;900 background photo, so it fills a 16:9 screen edge to edge with no letterboxing. The browser's own chrome (tabs, address bar) is still visible until you go fullscreen — press `F11`, or `f` inside the deck itself. Arrow keys / space / a presentation remote's Page Up/Page Down all advance slides as usual.
+
+**Slide dots:** every deck shows a row of small dots at the bottom, one per slide — click one to jump straight to that slide. A dot is red if that slide's content is taller than the 900px slide height and will get cut off, which makes it easy to spot `content.md` slides that need trimming or splitting into two.
+
 Inside a deck: arrow keys / space to advance, `Esc` for slide overview, `S` for speaker notes view.
 
 ## Adding a new session

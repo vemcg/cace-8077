@@ -353,9 +353,7 @@ def build_deck_html(session_num, topic, content_slides, background):
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
-  <script>
-    Reveal.initialize({{ hash: true }});
-  </script>
+  <script src="../../assets/js/deck.js"></script>
 </body>
 </html>
 """
