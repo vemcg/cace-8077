@@ -49,7 +49,7 @@ SESSION_BACKGROUNDS = {
     1: "wright-flyer.jpg",
     2: "spirit-of-st-louis.jpg",
     3: "pan-am-clipper.jpg",
-    4: "f86-sabre.jpg",
+    4: "bell-x2.jpg",
     5: "f100-super-sabre.jpg",
     6: "apollo-capsule.jpg",
     7: "gemini-capsule.jpg",
@@ -68,7 +68,7 @@ SESSION_SLUGS = {
     1: "first-flight",
     2: "age-of-exploration",
     3: "far-horizons",
-    4: "dnle66y4",
+    4: "higher-faster",
     5: "kfcv9ioc",
     6: "aan8y0rv",
     7: "jm9zuwep",
@@ -83,6 +83,7 @@ SESSION_OVERLAYS = {
     1: "rgba(225, 190, 148, 0.78)",  # warm sepia, matches the old photograph
     2: "rgba(210, 225, 240, 0.8)",  # slight blue tint, matches the sky
     3: "rgba(195, 220, 222, 0.76)",  # ocean teal, matches the Pacific crossing
+    4: "rgba(205, 213, 224, 0.7)",  # cool steel-blue, matches the high-altitude drama
 }
 
 COURSE_TITLE = "AI: A Shortcut to Software Design (8077)"

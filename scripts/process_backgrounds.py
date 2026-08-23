@@ -17,15 +17,20 @@ DST = os.path.join(os.path.dirname(__file__), "..", "assets", "images")
 
 CANVAS_W, CANVAS_H = 1600, 900
 
-# name -> crop mode ("crop" center-crops to fill the frame; "contain" scales
+# name -> crop mode. "crop" center-crops to fill the frame; "contain" scales
 # to fit height and fills the sides with a blurred edge-extension, for the
-# tall/square shots where cropping would cut off the subject).
+# tall/square shots where cropping would cut off the subject. A ("crop", bias)
+# tuple crops off-center instead: bias is 0.0-1.0 along whichever axis gets
+# cropped (top/left at 0.0, centered at 0.5, bottom/right at 1.0) -- use it
+# when the subject isn't centered in the original photo (e.g. bell-x2, where
+# the dropped aircraft is low in the frame and a center-crop cuts it off).
 IMAGES = {
     "wright-flyer": "crop",
     "spirit-of-st-louis": "crop",
     "curtiss-jenny": "crop",
     "pan-am-clipper": "crop",
     "p51-mustang": "crop",
+    "bell-x2": ("crop", 0.85),
     "f86-sabre": "crop",
     "f100-super-sabre": "crop",
     "apollo-capsule": "contain",
@@ -34,17 +39,17 @@ IMAGES = {
 }
 
 
-def center_crop_to_canvas(img):
+def center_crop_to_canvas(img, bias=0.5):
     w, h = img.size
     target_ratio = CANVAS_W / CANVAS_H
     ratio = w / h
     if ratio > target_ratio:
         new_w = round(h * target_ratio)
-        left = (w - new_w) // 2
+        left = round((w - new_w) * bias)
         box = (left, 0, left + new_w, h)
     else:
         new_h = round(w / target_ratio)
-        top = (h - new_h) // 2
+        top = round((h - new_h) * bias)
         box = (0, top, w, top + new_h)
     cropped = img.crop(box)
     return cropped.resize((CANVAS_W, CANVAS_H), Image.LANCZOS)
@@ -90,18 +95,19 @@ def main():
         targets = list(IMAGES)
 
     for name in targets:
-        mode = IMAGES[name]
+        spec = IMAGES[name]
+        mode, bias = spec if isinstance(spec, tuple) else (spec, 0.5)
         src_path = os.path.join(SRC, f"{name}.jpg")
         img = Image.open(src_path).convert("RGB")
 
         if mode == "crop":
-            framed = center_crop_to_canvas(img)
+            framed = center_crop_to_canvas(img, bias)
         else:
             framed = contain_with_edge_fill(img)
 
         dst_path = os.path.join(DST, f"{name}.jpg")
         framed.save(dst_path, "JPEG", quality=90, optimize=True)
-        print(f"{name}: {mode} -> {dst_path}")
+        print(f"{name}: {mode} (bias={bias}) -> {dst_path}")
 
 
 if __name__ == "__main__":

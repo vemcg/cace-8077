@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session 4 &mdash; AI: A Shortcut to Software Design (8077)</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>:root { --overlay: rgba(205, 213, 224, 0.7); }</style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section class="title-slide" data-background-image="../../assets/images/bell-x2.jpg">
+        <div class="title-slide-top">
+          <p class="course-title">AI: A Shortcut to Software Design (8077)</p>
+          <h1 class="session-title">Higher, Faster</h1>
+        </div>
+        <div class="title-slide-contact">
+          <p class="presenter-name">Vern McGeorge</p>
+          <p class="contact-email">VernMcGeorge@gmail.com</p>
+          <p class="contact-phone">408-256-1849</p>
+          <p class="contact-note">Until you're in my contacts list, leave a text or voicemail.</p>
+        </div>
+        <p class="follow-along-url">Follow along: https://vemcg.github.io/cace-8077/sessions/higher-faster/</p>
+      </section>
+
+      <section data-background-image="../../assets/images/bell-x2.jpg">
+        <div class="slide-content">
+        <h2>Today's Agenda</h2>
+        <ul>
+          <li>Best practices that make AI-assisted development smoother</li>
+          <li>Spec before code</li>
+          <li>Let the AI stress-test your own design</li>
+          <li>Where things live: hosting, platforms, and frameworks</li>
+        </ul>
+        </div>
+      </section>
+
+      <section data-background-image="../../assets/images/bell-x2.jpg">
+        <div class="slide-content">
+        <h2>Write the Spec First</h2>
+        <ul>
+          <li>Before asking the AI to write code, ask it to help you write a short specification: what the app does, who it's for, the core features, and what's explicitly <em>out</em> of scope</li>
+          <li>A spec turns a vague idea into something the AI — and you — can actually build against</li>
+          <li>Keep it short: a page, not a novel</li>
+        </ul>
+        </div>
+      </section>
+
+      <section data-background-image="../../assets/images/bell-x2.jpg">
+        <div class="slide-content">
+        <h2>Let the AI Poke Holes</h2>
+        <ul>
+          <li>Once you have a draft spec, ask directly: "What questions do you have? What's underspecified? What could go wrong?"</li>
+          <li>Ask it to challenge your assumptions and surface edge cases <em>before</em> a line of code exists</li>
+          <li>Cheap to fix a design on paper; expensive to fix it after the code is written</li>
+        </ul>
+        </div>
+      </section>
+
+      <section data-background-image="../../assets/images/bell-x2.jpg">
+        <div class="slide-content">
+        <h2>Where Will It Live? (Hosting)</h2>
+        <ul>
+          <li><strong>Just files, no server</strong> <em>(games, most Far Horizons ideas)</em>: GitHub Pages, Netlify, Vercel — free, and it's what this course site itself runs on</li>
+          <li><strong>Needs to remember things across visits or devices</strong>: a backend-as-a-service like Firebase or Supabase — no server for you to manage</li>
+          <li><strong>Multiple people sharing the same live data</strong> <em>(collaboration/community tools)</em>: the same backend-as-a-service options, or your own small always-on service</li>
+          <li><strong>A long-running process</strong>, something that keeps working when nobody's looking: Render, Railway, Fly.io — "always on" hosting, usually a small monthly cost</li>
+        </ul>
+        </div>
+      </section>
+
+      <section data-background-image="../../assets/images/bell-x2.jpg">
+        <div class="slide-content">
+        <h2>Picking a Framework</h2>
+        <ul>
+          <li>You don't need one — plain HTML/CSS/JavaScript (what you used in <em>First Flight</em>) works everywhere, forever, no build step</li>
+          <li>A framework (React, Vue, Svelte, etc.) pays off once a project gets big enough that plain JS gets unwieldy — not before</li>
+          <li>Let the AI recommend one <em>after</em> you know what you're building, not before</li>
+        </ul>
+        </div>
+      </section>
+
+      <section data-background-image="../../assets/images/bell-x2.jpg">
+        <div class="slide-content">
+        <h2>Your <em>Higher, Faster</em> Activity</h2>
+        <ul>
+          <li>Take the project idea from <em>Far Horizons</em></li>
+          <li>Ask your AI partner to draft a one-page spec with you</li>
+          <li>Ask it what questions it has, and address the biggest ones</li>
+          <li>Decide where you'd host it, and why</li>
+        </ul>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="../../assets/js/deck.js"></script>
+</body>
+</html>

@@ -16,7 +16,7 @@ assets/
     wright-flyer.jpg
     spirit-of-st-louis.jpg
     pan-am-clipper.jpg
-    f86-sabre.jpg
+    bell-x2.jpg
     f100-super-sabre.jpg
     apollo-capsule.jpg
     gemini-capsule.jpg
@@ -28,7 +28,8 @@ sessions/
     index.html         # generated from content.md, don't hand-edit
   age-of-exploration/   # session 2
   far-horizons/          # session 3
-  ...                    # sessions 4-8: still random placeholder slugs, see SESSION_SLUGS below
+  higher-faster/         # session 4
+  ...                    # sessions 5-8: still random placeholder slugs, see SESSION_SLUGS below
   _template/         # content.md stub to copy for a new session
 scripts/
   build_decks.py            # content.md -> index.html for all 8 sessions, plus the local master index
@@ -96,7 +97,7 @@ Each session has one background image, used on all of its slides — no mixing w
 | 1 | `wright-flyer.jpg` | Wright Flyer, first flight, Dec 17 1903 | sepia | Photo by John T. Daniels, Library of Congress. Public domain (pre-1931). |
 | 2 | `curtiss-jenny.jpg` | Curtiss JN-4 "Jenny" on a WWI training flight | sepia | George Johnson, U.S. Army Air Service, 1918. Public domain. |
 | 3 | `pan-am-clipper.jpg` | Boeing 314 Clipper flying boat, low over open water | teal | Boeing Aircraft Co., c. 1941, via Library of Congress Prints and Photographs Division (digital ID cph.3b37576). Public domain in the US. |
-| 4 | `f86-sabre.jpg` | F-86F Sabre, 1953 | blue | U.S. Air Force. Public domain (USAF work). |
+| 4 | `bell-x2.jpg` | Bell X-2 rocket plane, moments after drop from its B-50 mothership | steel-blue | NACA/NASA, c. 1955-56 (Great Images in NASA, GPN-2000-000396). Public domain. |
 | 5 | `f100-super-sabre.jpg` | F-100D Super Sabre, on display | blue | Photo by Flickr user "happy days photos and art," Militaire Luchtvaart Museum Camp Zeist, 2009. CC BY 2.0 &mdash; attribution required, credit as above. |
 | 6 | `apollo-capsule.jpg` | Apollo 9 Command Module "Gumdrop," just after splashdown recovery aboard USS Guadalcanal, 1969 | gray | NASA, Photo ID S69-20239. Public domain. |
 | 7 | `gemini-capsule.jpg` | Gemini 4 capsule, recovery aboard USS Wasp, 1965 | gray | NASA, Photo ID S65-32962. Public domain. |

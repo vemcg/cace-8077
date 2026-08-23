@@ -79,6 +79,13 @@
 
 ---
 
+## Course & Presentation Tool
+
+- Slide-deck generator, course-outline planner, study-guide builder — something meta, like *this very class site*
+- **Good fit if:** you're curious how a tool like the one running this deck actually works, and want to build your own version
+
+---
+
 ## Your *Far Horizons* Activity
 
 - Skim back over the categories — or bring an idea that's entirely your own
