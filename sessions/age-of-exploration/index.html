@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session 2 &mdash; AI: A Shortcut to Software Design (8077)</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>:root { --overlay: rgba(210, 225, 240, 0.8); }</style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section class="title-slide" data-background-image="../../assets/images/spirit-of-st-louis.jpg">
+        <div class="title-slide-top">
+          <p class="course-title">AI: A Shortcut to Software Design (8077)</p>
+          <h1 class="session-title">Age of Exploration</h1>
+        </div>
+        <div class="title-slide-contact">
+          <p class="presenter-name">Vern McGeorge</p>
+          <p class="contact-email">VernMcGeorge@gmail.com</p>
+          <p class="contact-phone">408-256-1849</p>
+          <p class="contact-note">Until you're in my contacts list, leave a text or voicemail.</p>
+        </div>
+      </section>
+
+      <section data-background-image="../../assets/images/spirit-of-st-louis.jpg">
+        <h2>Anybody have any Problems?</h2>
+        <ul>
+          <li>Troubles with Copy/Paste</li>
+          <li>Inconvenience of Copy/Paste</li>
+          <li>Getting things working and then breaking them</li>
+          <li>Way too much interaction with confusing code</li>
+          <li>Way too much interaction with processes you don't understand</li>
+        </ul>
+      </section>
+
+      <section data-background-image="../../assets/images/spirit-of-st-louis.jpg">
+        <h2>Tooling Up</h2>
+        <ul>
+          <li>You can continue doing reasonable work the way you have been uh with no tools and no expenses</li>
+          <li>It gets a lot easier if you can install tools on your laptop</li>
+          <li>It gets even easier if you're willing to Incur some minor expenses (~20/month)</li>
+        </ul>
+      </section>
+
+      <section data-background-image="../../assets/images/spirit-of-st-louis.jpg">
+        <h2>Must Have Free Tools</h2>
+        <p>The two immediate "must haves" are:</p>
+        <ul>
+          <li><strong>An Integrated Development Environment (IDE)</strong> - This is Where you manage your projects, where you edit your code, and where you get and save your work. You can do this with an editor such as Notepad (or Mac/Linux equivalent) but it's incredibly painful.</li>
+          <li><strong>A Version Control System</strong> - This is where you keep track of versions of your work, save working results, and incrementally improve your project. You can do this with File Explorer (or Mac/Linux equivalent) by maintaining folders for different versions, but it's incredibly painful</li>
+        </ul>
+        <p>I use <strong><a href="https://code.visualstudio.com/download?_exp_download=fb315fc982" target="_blank" rel="noopener noreferrer">Visual Studio Code</a></strong> and <strong><a href="https://git-scm.com/install/" target="_blank" rel="noopener noreferrer">git</a></strong>. I strongly recommend <strong>git</strong> especially if you are going to allow the AI to help you with it.</p>
+      </section>
+
+      <section data-background-image="../../assets/images/spirit-of-st-louis.jpg">
+        <h2>Tools You Pay For</h2>
+        <p>Adding an AI Coding partner to your IDE is how you offload most of technical details to AI by allowing the AI to edit your files directly and to interact with other tools such as <strong>git</strong>.</p>
+      </section>
+
+      <section data-background-image="../../assets/images/spirit-of-st-louis.jpg">
+        <h2>Claude Code — AI That Edits Your Codebase Directly</h2>
+        <p><strong>What it is:</strong> A VS Code extension (built on the Claude Code CLI) that lets Claude read, edit, and create files across your whole project — not just answer questions in a chat window.</p>
+        <p><strong>IDE integration</strong></p>
+        <ul>
+          <li>Docks right into VS Code — sidebar, panel, or its own tab</li>
+          <li>Side-by-side diff viewer for every change before you accept it</li>
+          <li>@-mention files or your current text selection to give Claude context</li>
+          <li>Reads VS Code's own error/warning diagnostics automatically</li>
+        </ul>
+        <p><strong>Beyond the editor</strong></p>
+        <ul>
+          <li>Runs terminal commands, installs packages, and manages <strong>git</strong> (commits, branches, PRs) on your behalf</li>
+          <li>Can trigger <strong>deployments</strong> and other project tooling</li>
+          <li>Connects to third-party tools/services via <strong>MCP</strong> (Model Context Protocol) — e.g. issue trackers, docs, databases</li>
+        </ul>
+        <p><strong>Cost</strong></p>
+        <ul>
+          <li>Requires <strong>Claude Pro</strong>: <strong>$20/month</strong> (or <strong>$17/month billed annually</strong>)</li>
+          <li>Free Claude.ai accounts do <strong>not</strong> include this level of Claude Code access</li>
+        </ul>
+      </section>
+
+      <section data-background-image="../../assets/images/spirit-of-st-louis.jpg">
+        <h2>AI-Powered Development with OpenAI Codex</h2>
+        <ul>
+          <li><strong>Codex + VS Code:</strong> AI coding agent that works directly in your codebase</li>
+          <li><strong>Edit &amp; build:</strong> Reads, creates, and modifies files; runs commands, tests, and debugging</li>
+          <li><strong>Developer workflow:</strong> Works with <strong>Git</strong>, terminals, extensions, and external tools</li>
+          <li><strong>Cloud option:</strong> Delegate larger coding tasks to Codex in the cloud while you continue working</li>
+          <li><strong>Cost:</strong> Included with ChatGPT plans; <strong>ChatGPT Plus — $20/month</strong> is a good starting point</li>
+          <li><strong>Get started:</strong> <a href="https://developers.openai.com/codex/ide/" target="_blank" rel="noopener noreferrer">developers.openai.com/codex/ide</a></li>
+        </ul>
+      </section>
+
+      <section data-background-image="../../assets/images/spirit-of-st-louis.jpg">
+        <h2>Gemini Code Assist for Development</h2>
+        <ul>
+          <li><strong>IDE Integration:</strong> Built-in extension for <strong>VS Code</strong>, JetBrains, and Android Studio supporting real-time code completion, multi-file agentic editing, and conversational debugging.</li>
+          <li><strong>Ecosystem &amp; Tooling:</strong> Seamless connectivity with GitHub (automated pull request reviews), Model Context Protocol (MCP) ecosystems, and Google Cloud services.</li>
+          <li><strong>Pricing:</strong> <strong>$19 per user/month</strong> (annual commitment) or <strong>$22.80/user/month</strong> (monthly plan).</li>
+          <li><strong>Get Started:</strong> <a href="https://codeassist.google/" target="_blank" rel="noopener noreferrer">codeassist.google</a></li>
+        </ul>
+      </section>
+
+      <section data-background-image="../../assets/images/spirit-of-st-louis.jpg">
+        <h2>Copilot IDE Integration</h2>
+        <ul>
+          <li><strong>Deep VS Code, Visual Studio, GitHub &amp; Azure integration</strong> — inline coding, repo-aware reasoning, PR help, CLI workflows.</li>
+          <li><strong>Works with third-party tools</strong> via extensions, APIs, GitHub Actions, and cloud deployment hooks.</li>
+          <li><strong>Cost:</strong>
+            <ul>
+              <li><strong>Copilot Pro:</strong> $20/month</li>
+              <li><strong>GitHub Copilot Enterprise:</strong> $39/user/month</li>
+            </ul>
+          </li>
+          <li><strong>Get started:</strong> <a href="https://aka.ms/copilot-vscode" target="_blank" rel="noopener noreferrer">aka.ms/copilot-vscode</a></li>
+          <li>Explore topics: IDE integration, tooling workflows, Copilot pricing</li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+
+  <script type="module">
+    import Reveal from 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.esm.js';
+    Reveal.initialize({ hash: true });
+  </script>
+</body>
+</html>

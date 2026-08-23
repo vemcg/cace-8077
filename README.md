@@ -1,18 +1,20 @@
 # AI: A Shortcut to Software Design (8077)
 
-Course template repo for an 8-session class. Each session has its own [reveal.js](https://revealjs.com/) slide deck, written in Markdown and compiled to HTML, and a master `index.html` links out to all of them.
+Course template repo for an 8-session class. Each session has its own [reveal.js](https://revealjs.com/) slide deck, written in Markdown and compiled to HTML.
+
+Each session lives at its own **unguessable URL** (a slug, not `session-01`/`session-02`/...) — see [Session URLs & access control](#session-urls--access-control) before sharing links with students.
 
 ## Structure
 
 ```
-index.html           # master index: links to all 8 session decks
+index.html           # local-only master index, links every session by slug (gitignored, see below)
 assets/
   css/
     style.css         # shared deck styling (title slide, light-image overlay)
     index.css          # styling for the master index page
   images/               # one background photo per session (see table below)
     wright-flyer.jpg
-    curtiss-jenny.jpg
+    spirit-of-st-louis.jpg
     p51-mustang.jpg
     f86-sabre.jpg
     f100-super-sabre.jpg
@@ -21,21 +23,21 @@ assets/
     moon-landing.jpg
     originals/           # untouched source downloads (gitignored, kept locally for reprocessing)
 sessions/
-  session-01/
+  first-flight/         # session 1 — slug is the topic, kebab-cased
     content.md       # edit this — the session topic and slide content
     index.html         # generated from content.md, don't hand-edit
-  session-02/
-  ...
-  session-08/
+  age-of-exploration/   # session 2
+  edwpygz7/              # session 3 — still "Topic TBD", so a random placeholder slug
+  ...                    # sessions 4-8: same pattern, see SESSION_SLUGS below
   _template/         # content.md stub to copy for a new session
 scripts/
-  build_decks.py            # content.md -> index.html for all 8 sessions
+  build_decks.py            # content.md -> index.html for all 8 sessions, plus the local master index
   process_backgrounds.py   # crops/letterboxes + tints assets/images/originals/*.jpg into assets/images/*.jpg
 ```
 
 ## Editing session content
 
-Each session's content lives in `sessions/session-NN/content.md`, not in the HTML. Format:
+Each session's content lives in `sessions/<slug>/content.md`, not in the HTML. Format:
 
 ```markdown
 # Session 1: Topic TBD
@@ -54,9 +56,10 @@ Each session's content lives in `sessions/session-NN/content.md`, not in the HTM
 A plain paragraph works too, not just bullets.
 ```
 
-- The `# ...` line is the session's topic. It fills both the title slide's session-title line and the standalone "Session N: ..." slide right after it.
-- Each `---`-separated block below that becomes one more slide: `##` is the heading, `-` lines become a bullet list, plain lines become a paragraph.
+- The `# ...` line is the session's topic. It fills the title slide's session-title line — it does not produce a slide of its own.
+- Each `---`-separated block below that becomes one slide: `##` is the heading, `-` lines become a bullet list, plain lines become a paragraph, `> ` becomes a blockquote.
 - Inline formatting: `**bold**`, `*italic*`, `` `code` ``, and `[link text](https://example.com)` all work.
+- Tag a heading with `## Some slide {#some-id}` to give it an id, then link to it from anywhere in the deck with `[text](#/some-id)` — reveal.js will jump straight to it.
 
 After editing any `content.md`, regenerate the HTML:
 
@@ -64,7 +67,23 @@ After editing any `content.md`, regenerate the HTML:
 python scripts/build_decks.py
 ```
 
-This rewrites every `sessions/session-NN/index.html` from its `content.md`. Requires Python (no extra packages). **Don't hand-edit the generated `index.html` files** — those edits get overwritten next run.
+This rewrites every `sessions/<slug>/index.html` from its `content.md`, and regenerates the local master `index.html` too. Requires Python (no extra packages). **Don't hand-edit the generated `index.html` files** — those edits get overwritten next run.
+
+## Session URLs & access control
+
+Sessions are *not* at predictable paths like `session-01`, `session-02`, ... — each one lives at `sessions/<slug>/`, where the slug is its real topic, kebab-cased (`sessions/first-flight/`, `sessions/age-of-exploration/`). Nobody can reach a session by guessing or incrementing a URL; they need to already know its title. Sessions still marked "Topic TBD" get a random placeholder slug (e.g. `sessions/edwpygz7/`) instead, so even their *order* isn't exposed before you've settled on a real title.
+
+The `SESSION_SLUGS` dict in `scripts/build_decks.py` is the source of truth for the mapping. To finalize a placeholder once you've written the real title:
+
+1. Update the `# Session N: Topic TBD` heading in that session's `content.md` to the real title.
+2. Pick a slug for it (kebab-case of the title) and `git mv sessions/<old-slug> sessions/<new-slug>`.
+3. Update that session's entry in `SESSION_SLUGS`.
+4. Rerun `python scripts/build_decks.py`.
+5. Re-share the new link — the old slug stops working once you push.
+
+**The one place that lists every session together — number, topic, and slug, side by side — is the local `index.html`** generated by `build_decks.py`. It's gitignored on purpose: it never gets committed, never gets pushed, and never appears on the published site. Open it locally (double-click it, or via `http://localhost:8000/` when serving the folder — see below) whenever you need the full list; nothing else in the repo or the live site links all eight sessions together.
+
+**Be clear-eyed about what this does and doesn't protect against.** This repo is a public GitHub repo, and GitHub's own file browser (the Code tab) lists every folder under `sessions/` — including a stray reference to a slug (a Slack message, a browser history entry, a shared screenshot) is enough for anyone to find it, and anyone who actually browses the repo on github.com sees every slug and topic at once, no guessing required. Slugs stop a student from idly trying `session-03` in the address bar; they are not real access control against someone who goes looking at the source repo. If you need actual confidentiality (not just casual obscurity), that needs a private repo on a paid GitHub plan (Pro/Team/Enterprise support Pages from private repos) or a hosting setup with real authentication in front of it.
 
 The title slide (course title, your name/email/phone/note, background image) is fixed boilerplate generated by the script, not something you edit per session — change it once in `scripts/build_decks.py` (the `COURSE_TITLE` / `PRESENTER_*` / `CONTACT_NOTE` constants) if it ever needs to change.
 
@@ -109,13 +128,23 @@ python -m http.server 8000      # Python
 npx serve .                     # Node
 ```
 
-Then open `http://localhost:8000/` for the master index, or jump straight to a deck at `http://localhost:8000/sessions/session-01/index.html`.
+Then open `http://localhost:8000/index.html` for the local master index (see [Session URLs & access control](#session-urls--access-control)), or jump straight to a deck at `http://localhost:8000/sessions/first-flight/index.html`.
 
 Inside a deck: arrow keys / space to advance, `Esc` for slide overview, `S` for speaker notes view.
 
 ## Adding a new session
 
-Copy `sessions/_template/content.md` into a new `sessions/session-NN/content.md`, add an entry for it in `SESSION_BACKGROUNDS` in `scripts/build_decks.py` (with a background image dropped into `assets/images/`), then rerun `python scripts/build_decks.py`.
+Copy `sessions/_template/content.md` into a new `sessions/<slug>/content.md` (a random placeholder slug is fine until you have a real title — see [Session URLs & access control](#session-urls--access-control)), add an entry for it in both `SESSION_BACKGROUNDS` and `SESSION_SLUGS` in `scripts/build_decks.py` (with a background image dropped into `assets/images/`), then rerun `python scripts/build_decks.py`.
+
+## Hosting on GitHub Pages
+
+This repo is public, and is meant to be served with GitHub Pages: **Settings > Pages > Deploy from a branch**, branch `main`, folder `/ (root)`. Each session deck is then live at:
+
+```
+https://<your-username>.github.io/<repo-name>/sessions/<slug>/
+```
+
+There's no published entry point that lists all of them — the root of the site has no `index.html` (it's gitignored, see above), so it 404s unless you already have a specific session's link. Share individual session links with students as you release them.
 
 ## Setting up as a GitHub template
 

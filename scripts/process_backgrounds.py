@@ -1,4 +1,15 @@
+"""Crop/letterbox assets/images/originals/*.jpg into assets/images/*.jpg at
+1600x900, in natural color -- no recoloring. Legibility over these photos is
+handled entirely by the white overlay in assets/css/style.css
+(.reveal .slides section::before), not by anything baked into the image.
+
+Usage:
+    python scripts/process_backgrounds.py                 # all images
+    python scripts/process_backgrounds.py wright-flyer     # just one
+"""
+
 import os
+import sys
 from PIL import Image, ImageFilter
 
 SRC = os.path.join(os.path.dirname(__file__), "..", "assets", "images", "originals")
@@ -6,41 +17,20 @@ DST = os.path.join(os.path.dirname(__file__), "..", "assets", "images")
 
 CANVAS_W, CANVAS_H = 1600, 900
 
-# name -> (group, mode)
+# name -> crop mode ("crop" center-crops to fill the frame; "contain" scales
+# to fit height and fills the sides with a blurred edge-extension, for the
+# tall/square shots where cropping would cut off the subject).
 IMAGES = {
-    "wright-flyer": ("sepia", "crop"),
-    "curtiss-jenny": ("sepia", "crop"),
-    "p51-mustang": ("blue", "crop"),
-    "f86-sabre": ("blue", "crop"),
-    "f100-super-sabre": ("blue", "crop"),
-    "apollo-capsule": ("gray", "contain"),
-    "gemini-capsule": ("gray", "crop"),
-    "moon-landing": ("gray", "contain"),
+    "wright-flyer": "crop",
+    "spirit-of-st-louis": "crop",
+    "curtiss-jenny": "crop",
+    "p51-mustang": "crop",
+    "f86-sabre": "crop",
+    "f100-super-sabre": "crop",
+    "apollo-capsule": "contain",
+    "gemini-capsule": "crop",
+    "moon-landing": "contain",
 }
-
-DUOTONE = {
-    "sepia": ((140, 110, 80), (250, 244, 230)),
-    "blue": ((120, 140, 165), (246, 250, 253)),
-    "gray": ((150, 150, 148), (248, 248, 246)),
-}
-
-
-def build_lut(shadow, highlight):
-    luts = []
-    for c in range(3):
-        lut = [round(shadow[c] + (highlight[c] - shadow[c]) * (i / 255)) for i in range(256)]
-        luts.append(lut)
-    return luts
-
-
-def apply_duotone(img, group):
-    shadow, highlight = DUOTONE[group]
-    luts = build_lut(shadow, highlight)
-    gray = img.convert("L")
-    r = gray.point(luts[0])
-    g = gray.point(luts[1])
-    b = gray.point(luts[2])
-    return Image.merge("RGB", (r, g, b))
 
 
 def center_crop_to_canvas(img):
@@ -88,7 +78,18 @@ def contain_with_edge_fill(img):
 
 
 def main():
-    for name, (group, mode) in IMAGES.items():
+    if len(sys.argv) > 1:
+        requested = sys.argv[1:]
+        unknown = [n for n in requested if n not in IMAGES]
+        if unknown:
+            print(f"Unknown image name(s): {unknown}. Valid: {sorted(IMAGES)}")
+            sys.exit(1)
+        targets = requested
+    else:
+        targets = list(IMAGES)
+
+    for name in targets:
+        mode = IMAGES[name]
         src_path = os.path.join(SRC, f"{name}.jpg")
         img = Image.open(src_path).convert("RGB")
 
@@ -97,11 +98,9 @@ def main():
         else:
             framed = contain_with_edge_fill(img)
 
-        toned = apply_duotone(framed, group)
-
         dst_path = os.path.join(DST, f"{name}.jpg")
-        toned.save(dst_path, "JPEG", quality=87, optimize=True)
-        print(f"{name}: {mode}/{group} -> {dst_path}")
+        framed.save(dst_path, "JPEG", quality=90, optimize=True)
+        print(f"{name}: {mode} -> {dst_path}")
 
 
 if __name__ == "__main__":
