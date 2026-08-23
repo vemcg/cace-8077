@@ -73,9 +73,9 @@
 
 .reveal .slides section:not(.title-slide) p,
 .reveal .slides section:not(.title-slide) li {
-  font-size: 0.75em;
+  font-size: 0.85em;
   font-weight: 600;
-  line-height: 1.28;
+  line-height: 1.32;
 }
 
 .reveal .slides section:not(.title-slide) strong {
@@ -83,8 +83,8 @@
 }
 
 .reveal .slides section:not(.title-slide) h2 {
-  font-size: 1.1em;
-  margin: 0 0 0.35em;
+  font-size: 1.25em;
+  margin: 0 0 0.4em;
 }
 
 .reveal .slides section:not(.title-slide) ul,
@@ -131,10 +131,10 @@
   margin: 0.2em 0 0.2em 1.1em;
   padding-left: 0.8em;
   border-left: 3px solid currentColor;
-  font-size: 0.65em;
+  font-size: 0.72em;
   font-weight: 600;
   font-style: italic;
-  line-height: 1.22;
+  line-height: 1.26;
   opacity: 0.92;
 }
 
@@ -163,6 +163,7 @@
    .title-slide-contact wrappers so decks still on the old flat markup are unaffected. */
 
 .reveal .slides section.title-slide:has(.title-slide-top) {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
