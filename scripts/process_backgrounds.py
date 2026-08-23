@@ -24,6 +24,7 @@ IMAGES = {
     "wright-flyer": "crop",
     "spirit-of-st-louis": "crop",
     "curtiss-jenny": "crop",
+    "pan-am-clipper": "crop",
     "p51-mustang": "crop",
     "f86-sabre": "crop",
     "f100-super-sabre": "crop",

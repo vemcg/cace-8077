@@ -34,10 +34,16 @@ I use **[Visual Studio Code](https://code.visualstudio.com/download?_exp_downloa
 
 Adding an AI Coding partner to your IDE is how you offload most of technical details to AI by allowing the AI to edit your files directly and to interact with other tools such as **git**.
 
+All four of the AI options listed in the last session (and no doubt many more) offer such integration. The following slides written by each of these AIs list feratures, costs, and links to get started.
+
+- **[Claude](#/Claude)** — strong at coding, free tier available, requires login (email/Google/Apple).
+- **[ChatGPT](#/OpenAI)** — the default most students already know, free tier available, requires login.
+- **[Gemini](#/Google-Gemini)** — Google's model, free tier, and it's a natural fit for students who already have school Google accounts since login friction is near-zero for them.
+- **[Microsoft Copilot](#/Microsoft-Copilot)** — runs on OpenAI's models; one of the few that's usable with no signup at all for basic chat, though signing in (Microsoft account) raises usage limits.
 
 ---
 
-## Claude Code — AI That Edits Your Codebase Directly
+## Claude Code — AI That Edits Your Codebase Directly {#Claude}
 
 **What it is:** A VS Code extension (built on the Claude Code CLI) that lets Claude read, edit, and create files across your whole project — not just answer questions in a chat window.
 
@@ -56,9 +62,12 @@ Adding an AI Coding partner to your IDE is how you offload most of technical det
 - Requires **Claude Pro**: **$20/month** (or **$17/month billed annually**)
 - Free Claude.ai accounts do **not** include this level of Claude Code access
 
+**Get started:**
+- [code.claude.com/docs/en/ide-integrations](https://code.claude.com/docs/en/ide-integrations)
+
 ---
 
-## AI-Powered Development with OpenAI Codex
+## AI-Powered Development with OpenAI Codex {#OpenAI}
 
 - **Codex + VS Code:** AI coding agent that works directly in your codebase
 - **Edit & build:** Reads, creates, and modifies files; runs commands, tests, and debugging
@@ -69,7 +78,7 @@ Adding an AI Coding partner to your IDE is how you offload most of technical det
 
 ---
 
-## Gemini Code Assist for Development
+## Gemini Code Assist for Development {#Google-Gemini}
 
 - **IDE Integration:** Built-in extension for **VS Code**, JetBrains, and Android Studio supporting real-time code completion, multi-file agentic editing, and conversational debugging.
 - **Ecosystem & Tooling:** Seamless connectivity with GitHub (automated pull request reviews), Model Context Protocol (MCP) ecosystems, and Google Cloud services.
@@ -78,7 +87,7 @@ Adding an AI Coding partner to your IDE is how you offload most of technical det
 
 ---
 
-## Copilot IDE Integration
+## Copilot IDE Integration {#Microsoft-Copilot}
 
 - **Deep VS Code, Visual Studio, GitHub & Azure integration** — inline coding, repo-aware reasoning, PR help, CLI workflows.
 - **Works with third-party tools** via extensions, APIs, GitHub Actions, and cloud deployment hooks.

@@ -15,7 +15,7 @@ assets/
   images/               # one background photo per session (see table below)
     wright-flyer.jpg
     spirit-of-st-louis.jpg
-    p51-mustang.jpg
+    pan-am-clipper.jpg
     f86-sabre.jpg
     f100-super-sabre.jpg
     apollo-capsule.jpg
@@ -27,8 +27,8 @@ sessions/
     content.md       # edit this — the session topic and slide content
     index.html         # generated from content.md, don't hand-edit
   age-of-exploration/   # session 2
-  x7q2m9/                # session 3 — still "Topic TBD", so a random placeholder slug
-  ...                    # sessions 4-8: same pattern, see SESSION_SLUGS below
+  far-horizons/          # session 3
+  ...                    # sessions 4-8: still random placeholder slugs, see SESSION_SLUGS below
   _template/         # content.md stub to copy for a new session
 scripts/
   build_decks.py            # content.md -> index.html for all 8 sessions, plus the local master index
@@ -95,14 +95,14 @@ Each session has one background image, used on all of its slides — no mixing w
 |---|---|---|---|---|
 | 1 | `wright-flyer.jpg` | Wright Flyer, first flight, Dec 17 1903 | sepia | Photo by John T. Daniels, Library of Congress. Public domain (pre-1931). |
 | 2 | `curtiss-jenny.jpg` | Curtiss JN-4 "Jenny" on a WWI training flight | sepia | George Johnson, U.S. Army Air Service, 1918. Public domain. |
-| 3 | `p51-mustang.jpg` | P-51 Mustang, Tuskegee Airmen heritage markings | blue | U.S. Air Force photo by Tech. Sgt. Ben Bloker. Public domain (USAF work). |
+| 3 | `pan-am-clipper.jpg` | Boeing 314 Clipper flying boat, low over open water | teal | Boeing Aircraft Co., c. 1941, via Library of Congress Prints and Photographs Division (digital ID cph.3b37576). Public domain in the US. |
 | 4 | `f86-sabre.jpg` | F-86F Sabre, 1953 | blue | U.S. Air Force. Public domain (USAF work). |
 | 5 | `f100-super-sabre.jpg` | F-100D Super Sabre, on display | blue | Photo by Flickr user "happy days photos and art," Militaire Luchtvaart Museum Camp Zeist, 2009. CC BY 2.0 &mdash; attribution required, credit as above. |
 | 6 | `apollo-capsule.jpg` | Apollo 9 Command Module "Gumdrop," just after splashdown recovery aboard USS Guadalcanal, 1969 | gray | NASA, Photo ID S69-20239. Public domain. |
 | 7 | `gemini-capsule.jpg` | Gemini 4 capsule, recovery aboard USS Wasp, 1965 | gray | NASA, Photo ID S65-32962. Public domain. |
 | 8 | `moon-landing.jpg` | Buzz Aldrin on the Moon, Apollo 11, 1969 | gray | Photo by Neil Armstrong, NASA Photo ID AS11-40-5903. Public domain. |
 
-All are real photographs, sourced from Wikimedia Commons (originating from the Library of Congress, U.S. Air Force, and NASA). Seven of the eight are U.S. government works and fully public domain; the F-100 (session 5) is Creative Commons-licensed and requires the attribution above if you keep using it &mdash; keep that credit line if you present or redistribute the deck.
+All are real photographs, sourced from Wikimedia Commons (originating from the Library of Congress, U.S. Air Force, and NASA). Seven of the eight are public domain (either U.S. government works, or otherwise confirmed public domain in the US, like the Library of Congress-held Clipper photo); the F-100 (session 5) is Creative Commons-licensed and requires the attribution above if you keep using it &mdash; keep that credit line if you present or redistribute the deck.
 
 Each photo has been cropped (or letterboxed, for the two tall/square shots, so nothing important gets cut off) to 1600&times;900 and put through a duotone wash: sepia for the two earliest aircraft, blue for the three jets, gray for the three spaceflight photos. The wash lifts the shadows so nothing gets too dark, keeping the slide text (and any printout) readable across the whole image. `assets/css/style.css` adds a light 20% white scrim on top mainly as a safety margin, since most of the legibility work is already baked into the photos.
 
