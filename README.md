@@ -120,7 +120,9 @@ This regenerates all 8 files in `assets/images/` in place. Requires Python with 
 
 ## Running the slide set
 
-No build step or install is required to *view* the decks — reveal.js loads from a CDN — but they use `<script type="module">`, and some browsers block ES module imports on pages opened directly via `file://`. So serve the folder locally instead:
+No build step, install, or local server is required — reveal.js loads from a CDN as a plain script (not an ES module), so every deck and the local master index (see [Session URLs & access control](#session-urls--access-control)) open fine straight off disk. Double-click `index.html`, or open any `sessions/<slug>/index.html`, in your browser.
+
+If you'd rather serve it (e.g. to test relative links exactly as they'll behave on GitHub Pages), that still works too:
 
 ```bash
 # from the repo root, pick one:
@@ -128,7 +130,7 @@ python -m http.server 8000      # Python
 npx serve .                     # Node
 ```
 
-Then open `http://localhost:8000/index.html` for the local master index (see [Session URLs & access control](#session-urls--access-control)), or jump straight to a deck at `http://localhost:8000/sessions/first-flight/index.html`.
+Then open `http://localhost:8000/index.html` for the local master index, or `http://localhost:8000/sessions/first-flight/index.html` for a deck.
 
 Inside a deck: arrow keys / space to advance, `Esc` for slide overview, `S` for speaker notes view.
 

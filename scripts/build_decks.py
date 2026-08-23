@@ -352,8 +352,8 @@ def build_deck_html(session_num, topic, content_slides, background):
     </div>
   </div>
 
-  <script type="module">
-    import Reveal from 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.esm.js';
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script>
     Reveal.initialize({{ hash: true }});
   </script>
 </body>
