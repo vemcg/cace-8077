@@ -329,7 +329,10 @@ def build_deck_html(session_num, topic, content_slides, background):
           <p class="contact-phone">{PRESENTER_PHONE}</p>
           <p class="contact-note">{CONTACT_NOTE}</p>
         </div>
-        <p class="follow-along-url">Follow along: {slide_url}</p>"""
+        <div class="follow-along-block">
+          <p class="follow-along-url">Follow along: {slide_url}</p>
+          <p class="fullscreen-hint">Press F to toggle full screen</p>
+        </div>"""
 
     sections = [render_section(background, title_slide_inner, extra_class="title-slide")]
 

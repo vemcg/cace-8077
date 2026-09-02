@@ -213,22 +213,40 @@
   margin-top: 0.25em;
 }
 
-/* Follow-along URL for students -- pinned near the very bottom of the title
-   slide (just above the slide-dots row), detached from the presenter's
-   contact block above it so there's always a clear gap between the two. */
-.reveal .slides section.title-slide .follow-along-url {
+/* Follow-along URL + fullscreen hint for students -- pinned near the very
+   bottom of the title slide (just above the slide-dots row), detached from
+   the presenter's contact block above it so there's always a clear gap
+   between the two. */
+.reveal .slides section.title-slide .follow-along-block {
   position: absolute;
   left: 50%;
   bottom: 42px;
   transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.reveal .slides section.title-slide .follow-along-url,
+.reveal .slides section.title-slide .fullscreen-hint {
   margin: 0;
   padding: 0.3em 0.6em;
   white-space: nowrap;
   font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-  font-size: 0.48em;
   font-weight: 700;
   background: rgba(255, 255, 255, 0.55);
   border-radius: 0.3em;
+}
+
+.reveal .slides section.title-slide .follow-along-url {
+  font-size: 0.48em;
+}
+
+.reveal .slides section.title-slide .fullscreen-hint {
+  font-size: 0.4em;
+  font-weight: 600;
+  font-style: italic;
 }
 
 /* Bottom dot strip, one dot per slide (added by assets/js/deck.js). Click to
