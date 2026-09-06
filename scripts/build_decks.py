@@ -75,6 +75,25 @@ SESSION_SLUGS = {
     8: "wwovt9ym",
 }
 
+# The actual folder name under sessions/ for each session. Finalized sessions
+# get an "NN-" prefix so the folder listing (in an editor, or GitHub's file
+# browser) sorts in session order instead of alphabetically. The public URL
+# stays the clean slug from SESSION_SLUGS above: this script also writes a
+# tiny redirect stub at sessions/<slug>/index.html pointing at the real
+# sessions/NN-<slug>/ folder, so links like .../sessions/first-flight/ keep
+# working. Placeholder (Topic TBD) sessions keep their bare random slug as
+# the folder name -- no number -- so their order still isn't exposed.
+SESSION_DIRS = {
+    1: "01-first-flight",
+    2: "02-age-of-exploration",
+    3: "03-far-horizons",
+    4: "04-higher-faster",
+    5: "kfcv9ioc",
+    6: "aan8y0rv",
+    7: "jm9zuwep",
+    8: "wwovt9ym",
+}
+
 # Per-session overlay color, tinting the photo behind the text as well as
 # fading it. Any rgba() works: white for a plain fade, a warm tone for a
 # sepia-ish look, cool for blue, etc. Sessions not listed here fall back to
@@ -183,6 +202,7 @@ def render_bullet_tree(nodes, indent="        "):
 
 
 HEADING_ID_RE = re.compile(r"\s*\{#([a-zA-Z0-9_-]+)\}\s*$")
+DIAGRAM_RE = re.compile(r"^\[\[diagram-left:\s*([^|]+?)\s*\|\s*(.+?)\]\]$")
 
 
 def extract_heading_id(heading_text):
@@ -229,6 +249,7 @@ def render_body(raw_lines):
     html_parts = []
     bullet_run = []
     quote_run = []
+    diagram_open = False
 
     def flush_list():
         if bullet_run:
@@ -247,7 +268,28 @@ def render_body(raw_lines):
     for raw_line in raw_lines:
         stripped = raw_line.strip()
         bullet = match_bullet(raw_line)
-        if bullet is not None:
+        diagram = DIAGRAM_RE.match(stripped)
+        if diagram:
+            flush_list()
+            flush_quote()
+            image_url, image_alt = diagram.groups()
+            html_parts.extend([
+                '        <div class="diagram-layout">',
+                '          <div class="diagram-visual">',
+                f'            <img src="{escape_html(image_url)}" alt="{escape_html(image_alt)}">',
+                '          </div>',
+                '          <div class="diagram-text">',
+            ])
+            diagram_open = True
+        elif stripped.startswith("### "):
+            flush_list()
+            flush_quote()
+            heading, heading_id = extract_heading_id(stripped[4:].strip())
+            id_attribute = f' id="{heading_id}"' if heading_id else ""
+            html_parts.append(
+                f"        <h3{id_attribute}>{inline_markdown(heading)}</h3>"
+            )
+        elif bullet is not None:
             flush_quote()
             level, text = bullet
             bullet_run.append((level, inline_markdown(text)))
@@ -260,6 +302,11 @@ def render_body(raw_lines):
             html_parts.append(f"        <p>{inline_markdown(stripped)}</p>")
     flush_list()
     flush_quote()
+    if diagram_open:
+        html_parts.extend([
+            '          </div>',
+            '        </div>',
+        ])
 
     return html_parts
 
@@ -371,6 +418,33 @@ def build_deck_html(session_num, topic, content_slides, background):
 """
 
 
+REDIRECT_STUB_TEMPLATE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url=../{target}/">
+  <link rel="canonical" href="../{target}/">
+  <title>Redirecting&hellip;</title>
+</head>
+<body>
+  <p>This session now lives at <a href="../{target}/">../{target}/</a>.</p>
+</body>
+</html>
+"""
+
+
+def write_redirect_stub(clean_slug, target_dir):
+    """Write sessions/<clean_slug>/index.html as a meta-refresh redirect to
+    sessions/<target_dir>/, so the clean URL keeps working after the real
+    folder gained an 'NN-' sort prefix."""
+    stub_dir = os.path.join(SESSIONS_DIR, clean_slug)
+    os.makedirs(stub_dir, exist_ok=True)
+    out_path = os.path.join(stub_dir, "index.html")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(REDIRECT_STUB_TEMPLATE.format(target=target_dir))
+    print(f"  redirect stub: sessions/{clean_slug}/ -> sessions/{target_dir}/")
+
+
 MASTER_INDEX_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -403,8 +477,8 @@ def build_master_index():
     leading_session_re = re.compile(r"^Session\s+\d+:\s*", re.IGNORECASE)
     items = []
     for num in sorted(SESSION_SLUGS):
-        slug = SESSION_SLUGS[num]
-        md_path = os.path.join(SESSIONS_DIR, slug, "content.md")
+        folder = SESSION_DIRS[num]
+        md_path = os.path.join(SESSIONS_DIR, folder, "content.md")
         topic = "Topic TBD"
         if os.path.exists(md_path):
             with open(md_path, encoding="utf-8") as f:
@@ -415,7 +489,7 @@ def build_master_index():
             except Exception:
                 pass
         items.append(
-            f'      <li><a href="sessions/{slug}/index.html">Session {num}: {topic}</a></li>'
+            f'      <li><a href="sessions/{folder}/index.html">Session {num}: {topic}</a></li>'
         )
 
     html = MASTER_INDEX_TEMPLATE.format(
@@ -445,10 +519,11 @@ def main():
     failures = []
     for num in targets:
         slug = SESSION_SLUGS[num]
-        folder = os.path.join(SESSIONS_DIR, slug)
+        dir_name = SESSION_DIRS[num]
+        folder = os.path.join(SESSIONS_DIR, dir_name)
         md_path = os.path.join(folder, "content.md")
         if not os.path.exists(md_path):
-            print(f"{slug}: no content.md, skipping")
+            print(f"{dir_name}: no content.md, skipping")
             continue
 
         with open(md_path, encoding="utf-8") as f:
@@ -458,14 +533,19 @@ def main():
             topic, content_slides = parse_markdown(md_text)
             html = build_deck_html(num, topic, content_slides, SESSION_BACKGROUNDS[num])
         except Exception as e:
-            print(f"{slug}: FAILED -- {e}")
+            print(f"{dir_name}: FAILED -- {e}")
             failures.append(num)
             continue
 
         out_path = os.path.join(folder, "index.html")
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(html)
-        print(f"session {num} ({slug}): {topic!r} -> {out_path}")
+        print(f"session {num} ({dir_name}): {topic!r} -> {out_path}")
+
+        # Keep the clean URL (sessions/<slug>/) working when the real folder
+        # carries an 'NN-' sort prefix.
+        if slug != dir_name:
+            write_redirect_stub(slug, dir_name)
 
     if failures:
         print(f"\n{len(failures)} session(s) failed to build: {failures}")

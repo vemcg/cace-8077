@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="550" height="850" viewBox="0 0 550 850" role="img" aria-labelledby="title description">
+  <title id="title">Git development tree</title>
+  <desc id="description">A stable release main branch runs vertically. An amber dev branch splits from main and merges back. Two feature branches split from dev and merge back before dev merges into main.</desc>
+
+  <rect width="550" height="850" fill="#f8f5ef"/>
+  <rect x="24" y="24" width="502" height="802" rx="18" fill="#fffdf9" stroke="#d9d1c4" stroke-width="3"/>
+
+  <text x="52" y="78" fill="#1f2d3a" font-family="Georgia, serif" font-size="31" font-weight="700">Git development tree</text>
+  <text x="52" y="112" fill="#56636c" font-family="Arial, sans-serif" font-size="17">Dev branches from main.</text>
+  <text x="52" y="137" fill="#56636c" font-family="Arial, sans-serif" font-size="17">Feature branches from dev.</text>
+
+  <!-- Straight branch and merge paths: feature -> release -> main. -->
+  <path d="M 115 720 L 115 199" fill="none" stroke="#1f2d3a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 115 650 L 200 619 L 200 230 L 115 199" fill="none" stroke="#c58a2c" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 200 619 L 310 579 L 310 490 L 200 450" fill="none" stroke="#2f7180" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 200 450 L 310 410 L 310 270 L 200 230" fill="none" stroke="#2f7180" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Main commits -->
+  <g fill="#fffdf9" stroke="#1f2d3a" stroke-width="8">
+    <circle cx="115" cy="720" r="16"/>
+    <circle cx="115" cy="650" r="16"/>
+    <circle cx="115" cy="540" r="16"/>
+    <circle cx="115" cy="430" r="16"/>
+    <circle cx="115" cy="199" r="16"/>
+  </g>
+
+  <!-- Release commits -->
+  <g fill="#fffdf9" stroke="#c58a2c" stroke-width="8">
+    <circle cx="200" cy="619" r="16"/>
+    <circle cx="200" cy="450" r="16"/>
+    <circle cx="200" cy="230" r="16"/>
+  </g>
+
+  <!-- Feature commits -->
+  <g fill="#fffdf9" stroke="#2f7180" stroke-width="8">
+    <circle cx="310" cy="579" r="16"/>
+    <circle cx="310" cy="490" r="16"/>
+    <circle cx="310" cy="410" r="16"/>
+    <circle cx="310" cy="270" r="16"/>
+  </g>
+
+  <!-- Labels -->
+  <g font-family="Arial, sans-serif" font-size="28" font-weight="700">
+    <text x="145" y="735" text-anchor="start" fill="#1f2d3a">main</text>
+    <text x="230" y="640" text-anchor="start" fill="#c58a2c">dev</text>
+    <text x="335" y="610" text-anchor="start" fill="#2f7180">feature 1</text>
+    <text x="335" y="430" text-anchor="start" fill="#2f7180">feature 2</text>
+  </g>
+
+  <g font-family="Arial, sans-serif" font-size="20" fill="#56636c">
+    <text x="145" y="760" text-anchor="start">Stable Release</text>
+    <text x="230" y="665" text-anchor="start">Next Release</text>
+    <text x="335" y="635" text-anchor="start">new work</text>
+    <text x="335" y="455" text-anchor="start">new work</text>
+  </g>
+</svg>

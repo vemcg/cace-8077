@@ -41,6 +41,27 @@ All four of the AI options listed in the last session (and no doubt many more) o
 - **[ChatGPT](#/OpenAI)** — the default most students already know, free tier available, requires login.
 - **[Gemini](#/Google-Gemini)** — Google's model, free tier, and it's a natural fit for students who already have school Google accounts since login friction is near-zero for them.
 - **[Microsoft Copilot](#/Microsoft-Copilot)** — runs on OpenAI's models; one of the few that's usable with no signup at all for basic chat, though signing in (Microsoft account) raises usage limits.
+- **[GitHub Copilot](#/GitHub-Copilot)** - built into Visual Studio Code. Requires a GitHub account.
+
+---
+
+## A Bit About Git and GitHub
+
+[[diagram-left: ../../assets/images/git-development-tree.svg | Git development tree showing main, dev, and feature branches]]
+
+**Git** is a version control system that records changes to files so you can experiment, review your history, and return to an earlier working state.
+
+**GitHub** is an online service for storing Git repositories and collaborating with other people. It adds shared hosting, pull requests, issues, and project coordination around Git.
+
+**Text template:** Add the key idea, example, or classroom explanation you want students to remember here.
+
+---
+
+## Reference Slides
+
+As written by the various companies
+
+Details are subject to change at any time
 
 ---
 
@@ -88,12 +109,22 @@ All four of the AI options listed in the last session (and no doubt many more) o
 
 ---
 
-## Copilot IDE Integration {#Microsoft-Copilot}
+## Microsoft Copilot IDE Integration {#Microsoft-Copilot}
 
 - **Deep VS Code, Visual Studio, GitHub & Azure integration** — inline coding, repo-aware reasoning, PR help, CLI workflows.
 - **Works with third-party tools** via extensions, APIs, GitHub Actions, and cloud deployment hooks.
 - **Cost:**
-  - **Copilot Pro:** $20/month
-  - **GitHub Copilot Enterprise:** $39/user/month
+	- **Copilot Pro:** $20/month
+	- **GitHub Copilot Enterprise:** $39/user/month
 - **Get started:** [aka.ms/copilot-vscode](https://aka.ms/copilot-vscode)
 - Explore topics: IDE integration, tooling workflows, Copilot pricing
+
+## GitHub Copilot {#GitHub-Copilot}
+
+**GitHub Copilot** is an AI coding partner built into the tools many developers already use. It offers deep integration with **VS Code, Visual Studio, GitHub, and Azure**, providing inline code suggestions, repo-aware reasoning, pull request help, and command-line workflows.
+
+Copilot can also work with third-party tools through extensions, APIs, GitHub Actions, and cloud deployment hooks. This makes it useful across the development workflow, from writing and understanding code to reviewing changes and deploying applications.
+
+**Cost:** **Copilot Pro** is **$20/month**. **GitHub Copilot Enterprise** is **$39/user/month**.
+
+**Get started:** [Get started](https://github.com/copilot)

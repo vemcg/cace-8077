@@ -99,6 +99,38 @@
   margin: 0.25em 0;
 }
 
+.reveal .slides section:not(.title-slide) .diagram-layout {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 58em;
+  margin: 0.5em 0;
+}
+
+.reveal .slides section:not(.title-slide) .diagram-visual {
+  flex: 0 0 38%;
+  display: flex;
+  justify-content: center;
+}
+
+.reveal .slides section:not(.title-slide) .diagram-visual img {
+  display: block;
+  width: 100%;
+  max-height: 25rem;
+  object-fit: contain;
+}
+
+.reveal .slides section:not(.title-slide) .diagram-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.reveal .slides section:not(.title-slide) .diagram-text p,
+.reveal .slides section:not(.title-slide) .diagram-text ul {
+  width: 100%;
+}
+
 .reveal .slides section:not(.title-slide) ul {
   list-style: none;
   padding: 0;
