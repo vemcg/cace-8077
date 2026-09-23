@@ -99,13 +99,13 @@ SESSION_DIRS = {
 # sepia-ish look, cool for blue, etc. Sessions not listed here fall back to
 # assets/css/style.css's own default (currently plain white at 80%).
 SESSION_OVERLAYS = {
-    1: "rgba(225, 190, 148, 0.78)",  # warm sepia, matches the old photograph
+    1: "rgba(235, 205, 168, 0.85)",  # warm sepia, matches the old photograph -- lightened, slightly less transparent
     2: "rgba(210, 225, 240, 0.8)",  # slight blue tint, matches the sky
     3: "rgba(195, 220, 222, 0.76)",  # ocean teal, matches the Pacific crossing
     4: "rgba(205, 213, 224, 0.7)",  # cool steel-blue, matches the high-altitude drama
 }
 
-COURSE_TITLE = "AI: A Shortcut to Software Design (8077)"
+COURSE_TITLE = "Vibe Coding: Create Apps and Games with AI (8077)"
 PRESENTER_NAME = "Vern McGeorge"
 PRESENTER_EMAIL = "VernMcGeorge@gmail.com"
 PRESENTER_PHONE = "408-256-1849"
