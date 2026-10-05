@@ -206,12 +206,12 @@ Put it inside a slide (give the heading an id, e.g. `## Flash cards {#git-flashc
   "title": "Git basics",
   "version": 1,
   "cards": [
-    { "id": "…", "front": "question", "back": "answer", "verified": true, "authored": true }
+    { "id": "…", "front": "question", "back": "answer" }
   ]
 }
 ```
 
-Only `deckId`, `cards[].id`, `front` and `back` matter to the widget. Cards from web pages also carry `source`, `evidence_quote` and `related_links` — render the source title as a small link under the answer when present, and ignore it otherwise (cards made from pasted text have none). Ignore unknown fields.
+A card is just `id`, `front` and `back`. Ignore any other field (older exports may carry things like `source` or `verified`).
 
 **Behavior (`assets/js/flashcards.js`, written once, shared by every deck):**
 
