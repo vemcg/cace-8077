@@ -498,3 +498,26 @@
 .reveal .controls .navigate-up.enabled {
   opacity: 1;
 }
+
+/* Arrow keys laid out like a keyboard's inverted T: up on its own row above,
+   left / down / right in a row beneath it. */
+.reveal .controls .navigate-left {
+  right: 6.4em;
+  bottom: 0;
+}
+
+.reveal .controls .navigate-down {
+  right: 3.2em;
+  bottom: 0;
+  padding-bottom: 0;
+}
+
+.reveal .controls .navigate-right {
+  right: 0;
+  bottom: 0;
+}
+
+.reveal .controls .navigate-up {
+  right: 3.2em;
+  bottom: 3.2em;
+}
