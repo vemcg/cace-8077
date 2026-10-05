@@ -216,9 +216,14 @@ DIAGRAM_RE = re.compile(r"^\[\[diagram-left:\s*([^|]+?)\s*\|\s*(.+?)\]\]$")
 STORY_RE = re.compile(r"^\[\[story:\s*([^|\]]+?)\s*(?:\|\s*([a-zA-Z0-9_-]+)\s*)?\]\]$")
 FLASHCARDS_RE = re.compile(r"^\[\[flashcards:\s*([^\]]+?)\s*\]\]$")
 
-# Rough per-slide budget for [[story: ...]] pagination. The build can't measure
-# rendered height, so this is a guide only -- the red dots in the deck confirm.
-STORY_CHAR_BUDGET = 700
+# Rough per-slide budget for [[story: ...]] pagination. Story slides use a
+# smaller font (see .story-slide in style.css) because they're read on the
+# student's own screen, not projected. The build can't measure rendered height,
+# so this is only a guide; tune it by testing the longest slides in a browser.
+STORY_CHAR_BUDGET = 1500
+# A '###' heading starts a new slide only if the current slide is at least this
+# fraction full.
+TOPIC_BREAK_FRACTION = 0.4
 
 
 def extract_heading_id(heading_text):
@@ -565,7 +570,12 @@ def story_slides(filename, anchor, ctx):
         for para in paras:
             n = sum(len(line) for line in para)
             starts_topic = para[0].startswith("### ")
-            if current and (starts_topic or size + n > STORY_CHAR_BUDGET):
+            # A '###' topic starts a fresh slide once the current one has a fair
+            # amount on it; a nearly empty slide just keeps going.
+            if current and (
+                (starts_topic and size >= STORY_CHAR_BUDGET * TOPIC_BREAK_FRACTION)
+                or size + n > STORY_CHAR_BUDGET
+            ):
                 chunks.append(current)
                 current, size = [], 0
             current.append(para)
@@ -670,7 +680,9 @@ def build_deck_html(session_num, topic, content_slides, background, uses_flashca
             inner = []
             for slide_html, slide_id in entry["stack"]:
                 wrapped = f'        <div class="slide-content">\n{slide_html}\n        </div>'
-                inner.append(render_section(background, wrapped, section_id=slide_id))
+                inner.append(
+                    render_section(background, wrapped, extra_class="story-slide", section_id=slide_id)
+                )
             sections.append(
                 '      <section class="story-stack">\n' + "\n".join(inner) + "\n      </section>"
             )

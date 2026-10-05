@@ -521,3 +521,29 @@
   right: 3.2em;
   bottom: 3.2em;
 }
+
+/* Story slides are read on the student's own screen rather than projected, so
+   they use a smaller font (everything inside scales with .slide-content) and a
+   wider text column to fit more story per slide. */
+.reveal .slides section.story-slide .slide-content {
+  font-size: 0.68em;
+  padding: 1.5rem 3rem;
+}
+
+.reveal .slides section.story-slide p,
+.reveal .slides section.story-slide ul,
+.reveal .slides section.story-slide ol,
+.reveal .slides section.story-slide blockquote,
+.reveal .slides section.story-slide .slide-content > p {
+  max-width: 62em;
+}
+
+.reveal .slides section.story-slide table {
+  max-width: 70em;
+}
+
+.reveal .slides section.story-slide blockquote {
+  font-size: 0.84em;
+  width: auto;
+  max-width: none;
+}
