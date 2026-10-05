@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // One dot per top-level (left/right) position. A vertical stack (a story)
+  // is a single dot, never flagged.
   var sections = Array.prototype.slice.call(
     document.querySelectorAll(".reveal .slides > section")
   );
@@ -31,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     probe.appendChild(slidesWrap);
     document.body.appendChild(probe);
 
-    var flags = sections.map(function (section) {
+    function overflows(section) {
       var clone = section.cloneNode(true);
       clone.style.display = "block";
       clone.style.position = "static";
@@ -40,6 +42,12 @@ document.addEventListener("DOMContentLoaded", function () {
       slidesWrap.innerHTML = "";
       slidesWrap.appendChild(clone);
       return clone.scrollHeight > 900;
+    }
+
+    var flags = sections.map(function (section) {
+      // Stories (vertical stacks) are paginated by the build; don't flag them.
+      if (section.querySelector(":scope > section")) return false;
+      return overflows(section);
     });
 
     probe.remove();

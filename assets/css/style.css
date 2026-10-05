@@ -320,3 +320,181 @@
 .slide-dot.overflow.active {
   background: #e74c3c;
 }
+
+/* Flashcard practice widget ([[flashcards: ...]] directive; markup built by
+   assets/js/flashcards.js). */
+
+.reveal .slides section:not(.title-slide) .flashcards {
+  width: 100%;
+  max-width: 46em;
+  text-align: left;
+  font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-panel {
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: 0.4em;
+  padding: 0.7em 1em;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards p {
+  margin: 0.3em 0;
+  font-size: 0.8em;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-title {
+  font-size: 1.05em;
+  font-weight: 800;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-progress {
+  font-size: 0.55em;
+  opacity: 0.75;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-question {
+  font-size: 0.95em;
+  font-weight: 800;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-answer {
+  padding-top: 0.3em;
+  border-top: 2px solid rgba(31, 45, 58, 0.3);
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-source {
+  font-size: 0.5em;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-btn {
+  font: inherit;
+  font-size: 0.7em;
+  font-weight: 700;
+  color: #1f2d3a;
+  background: #fff;
+  border: 2px solid #1f2d3a;
+  border-radius: 0.35em;
+  padding: 0.35em 0.8em;
+  cursor: pointer;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-btn:hover,
+.reveal .slides section:not(.title-slide) .flashcards .fc-btn:focus-visible {
+  background: #1f2d3a;
+  color: #fff;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-primary {
+  margin-top: 0.4em;
+  font-size: 0.8em;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-ratings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4em;
+  margin-top: 0.5em;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-rate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+  font-size: 0.6em;
+  padding: 0.4em 0.3em;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-stars {
+  font-size: 1.3em;
+  letter-spacing: 0.05em;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-rate-label {
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-footer {
+  margin-top: 0.5em;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-footer-row {
+  display: flex;
+  gap: 0.5em;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-small {
+  font-size: 0.55em;
+  padding: 0.2em 0.6em;
+}
+
+.reveal .slides section:not(.title-slide) .flashcards .fc-note,
+.reveal .slides section:not(.title-slide) .flashcards .fc-status {
+  font-size: 0.5em;
+  font-weight: 600;
+  opacity: 0.85;
+  margin: 0.25em 0;
+}
+
+/* Numbered lists and tables (used by [[story: ...]] slides and content.md). */
+.reveal .slides section:not(.title-slide) ol {
+  width: 100%;
+  max-width: 42em;
+  text-align: left;
+  margin: 0.25em 0 0.25em 1.4em;
+  padding: 0;
+}
+
+.reveal .slides section:not(.title-slide) ol li {
+  padding-left: 0.2em;
+}
+
+.reveal .slides section:not(.title-slide) ol li::before {
+  content: none;
+}
+
+.reveal .slides section:not(.title-slide) table {
+  width: 100%;
+  max-width: 48em;
+  margin: 0.4em 0;
+  border-collapse: collapse;
+  font-size: 0.62em;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.reveal .slides section:not(.title-slide) th,
+.reveal .slides section:not(.title-slide) td {
+  padding: 0.3em 0.6em;
+  text-align: left;
+  border: 1px solid rgba(31, 45, 58, 0.4);
+}
+
+.reveal .slides section:not(.title-slide) th {
+  background: rgba(31, 45, 58, 0.12);
+  font-weight: 800;
+}
+
+/* A [[story:]] is a vertical stack: the outer <section> only groups the inner
+   slides, so it must not draw its own tint on top of theirs. */
+.reveal .slides section.story-stack::before {
+  content: none;
+}
+
+/* Bigger, brighter navigation arrows in the lower right, so it's obvious
+   that a story (vertical stack) can be stepped through with up/down. */
+.reveal .controls {
+  transform: scale(1.6);
+  transform-origin: bottom right;
+  bottom: 18px;
+  right: 24px;
+  color: #1f5fbf;
+}
+
+.reveal .controls .navigate-down.enabled,
+.reveal .controls .navigate-up.enabled {
+  opacity: 1;
+}

@@ -128,3 +128,20 @@ Copilot can also work with third-party tools through extensions, APIs, GitHub Ac
 **Cost:** **Copilot Pro** is **$20/month**. **GitHub Copilot Enterprise** is **$39/user/month**.
 
 **Get started:** [Get started](https://github.com/copilot)
+
+---
+
+## Review: Version control using git and GitHub
+
+- [Read the story](#/git-story)
+- [Practice the flash cards](#/git-flashcards)
+
+---
+
+[[story: git-basics.md | git-story]]
+
+---
+
+## Flash cards: Git Basics {#git-flashcards}
+
+[[flashcards: git-basics.json]]

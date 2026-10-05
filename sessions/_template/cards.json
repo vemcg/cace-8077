@@ -1,0 +1,10 @@
+{
+  "deckId": "template-sample",
+  "title": "Sample deck",
+  "version": 1,
+  "cards": [
+    { "id": "t1", "front": "What is a commit?", "back": "A snapshot of your project that you can return to." },
+    { "id": "t2", "front": "What is a branch for?", "back": "Trying an idea safely without disturbing the main version." },
+    { "id": "t3", "front": "What does GitHub add to Git?", "back": "An online copy of your project that you can share." }
+  ]
+}

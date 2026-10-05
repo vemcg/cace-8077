@@ -169,3 +169,86 @@ The repo also has a `.nojekyll` file at its root. Without it, GitHub Pages runs 
 ## Setting up as a GitHub template
 
 After pushing this repo to GitHub, enable **Settings > Template repository** so it can be used as a starting point for future course offerings.
+
+## Review: `[[story: …]]` and `[[flashcards: …]]` directives
+
+Two slide directives for end-of-session review. Both are expanded by `scripts/build_decks.py`, the same way `[[diagram-left: …]]` already is, and neither needs a server — decks must keep working when opened straight off disk.
+
+Context: the story text and the flashcard deck are produced outside this repo. Claude writes the story as Markdown; the **Learn2X** browser extension (`../Learn2X`) turns pasted text into cards, and its popup's "Export deck" button writes them to a JSON file. Both files are then dropped into the session folder next to `content.md`.
+
+```
+sessions/02-age-of-exploration/
+  content.md
+  git-basics.md     # the story, written by Claude
+  git-basics.json   # the exported Learn2X deck
+```
+
+### `[[story: git-basics.md | git-story]]`
+
+Put the directive alone in its own `---` block of `content.md` (the build fails if other content shares the block). The optional `| git-story` is an anchor id given to the first generated slide, so another slide can link to it with `[Read the story](#/git-story)`. At build time, replace that block with a **vertical stack** of slides built from the named file (path relative to the session folder): the whole story occupies one left/right position in the deck and one dot in the dot strip, and you move through it with the up/down arrows (Space also steps through it). Left/right skips past the whole story. A `###` heading always starts a new slide.
+
+- Read the file and split it into paragraphs (blank-line separated). A `#` or `##` heading starts a new slide and becomes that slide's `<h2>`; `###` headings stay `<h3>`s. Bullets, `>` quotes (a bare `>` line separates quoted paragraphs), numbered lists, pipe tables, a trailing `\` for a line break, and inline formatting all render the same way in `content.md`; a `---` line in the story is just a break, so reuse `render_body()` / `inline_markdown()` instead of writing a second renderer.
+- Paginate by paragraph: add paragraphs to the current slide until adding the next one would make it too tall, then start a new slide with the same heading (append " (cont.)" or similar). The deck already measures overflow in `assets/js/deck.js` (the red dots); the build script can't measure rendered height, so use a character budget as a rough guide (start around 700 characters per slide) and let the red dots confirm it. A single paragraph, quoted paragraph or numbered list is never split; long bullet lists split between items and long tables between rows (repeating the header row).
+- Only the first slide gets the optional anchor id; the rest carry no `{#id}`. The slides are inserted in place of the directive's own slide, so any slides before and after it keep their order.
+- An empty story file inserts a "Story coming soon" placeholder slide (with a build warning). A missing file is a build failure for that session (the script already leaves a failed session's `index.html` untouched) with a message naming the file.
+
+### `[[flashcards: git-basics.json]]`
+
+Put it inside a slide (give the heading an id, e.g. `## Flash cards {#git-flashcards}`, to link to it). It hosts a flashcard practice round for the cards in `git-basics.json`.
+
+**Build time.** Read the JSON, validate it loosely, and **embed it in the generated HTML** — e.g. `<script type="application/json" class="flashcards-data">…</script>` inside the slide's `<section>` (escape `</` as `<\/` inside it). Do **not** have the page `fetch()` the JSON at runtime: browsers block `fetch` of local files on `file://`, and decks must keep opening by double-click. The slide also needs the widget code, so `build_decks.py` should add `<script src="../../assets/js/flashcards.js"></script>` (and a stylesheet link, or add the styles to `assets/css/style.css`) to any deck that contains the directive.
+
+**Deck JSON shape** (what Learn2X exports):
+
+```json
+{
+  "deckId": "git-basics",
+  "title": "Git basics",
+  "version": 1,
+  "cards": [
+    { "id": "…", "front": "question", "back": "answer", "verified": true, "authored": true }
+  ]
+}
+```
+
+Only `deckId`, `cards[].id`, `front` and `back` matter to the widget. Cards from web pages also carry `source`, `evidence_quote` and `related_links` — render the source title as a small link under the answer when present, and ignore it otherwise (cards made from pasted text have none). Ignore unknown fields.
+
+**Behavior (`assets/js/flashcards.js`, written once, shared by every deck):**
+
+- Shows one card at a time: the question, a "Show answer" button, then the answer and four rating buttons. Ratings are stars, as in the extension: 1 = "I don't understand this", 2 = "I got part of it", 3 = "I got most of it", 4 = "I got it completely". Show how many cards remain in the round.
+- Keys must not fight reveal.js: stop keydown propagation inside the widget, or use only mouse/touch controls, so Space and the arrow keys don't change slides while a card is open. The deck's `f` fullscreen shortcut should keep working outside the widget.
+- A round starts with cards the student has never rated, then cards that are due, then "weak" cards (latest rating of 1 or 2 stars, whether or not due), shuffled within each group. When nothing is new or due, offer a short practice round of up to 5 weak cards, and say so plainly if there is nothing to practice yet.
+- Progress is stored per student in the browser's `localStorage`, under `learn2x:progress:<deckId>`, as one JSON object mapping card id to `{ "box", "due", "lastReviewed", "stars" }` (times in ms since epoch). Wrap every localStorage read and write in try/catch — it can throw or be empty (private windows, blocked storage), and the widget must still work for the current round without it.
+- Because every session page lives on one origin (`https://vemcg.github.io`), progress carries across sessions on the published site. Opening a deck from disk or `localhost` is a different origin and has its own separate progress — expected, mention it in the UI only if it's cheap to do.
+- Scheduling is the Learn2X Leitner scheme. After a rating: **1 star** → `box = 0`, `due = now`. Otherwise `box = clamp(previousBox + step, 0, 5)` with step = −1 for 2 stars, +1 for 3, +2 for 4, and `due = now + days[max(box, 1) − 1]` days, where `days = [1, 2, 4, 8, 16]`. A card with no stored record is unseen (previous box 0).
+- Include an **Export progress** / **Import progress** pair of buttons (download / pick a JSON file) so a student can move progress to another browser. Progress never leaves the browser otherwise, and the instructor cannot see it — say so in a short line under the widget.
+- If the embedded JSON is missing or invalid, show a clear message in the slide instead of failing silently.
+
+**Out of scope:** accounts, servers, or any instructor-visible progress; editing cards in the deck page; the extension's cross-deck interleaving (a slide widget works on one deck).
+
+### A review section in `content.md`
+
+```markdown
+---
+
+## Review: Version control using git and GitHub
+
+- [Read the story](#/git-story)
+- [Practice the flash cards](#/git-flashcards)
+
+---
+
+[[story: git-basics.md | git-story]]
+
+---
+
+## Flash cards: Git Basics {#git-flashcards}
+
+[[flashcards: git-basics.json]]
+```
+
+`sessions/_template/` has a working copy of this, with a small `story.md` and `cards.json` beside it.
+
+### Checking it
+
+Rebuild with `python scripts/build_decks.py` and check: the story paginates without red dots; the widget works when `index.html` is opened from disk; ratings survive a reload; Space/arrow keys inside the widget don't advance the slide.

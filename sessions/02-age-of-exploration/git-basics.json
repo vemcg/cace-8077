@@ -1,0 +1,345 @@
+{
+  "deckId": "git-basics",
+  "title": "Git Basics",
+  "version": 1,
+  "cards": [
+    {
+      "id": "238dccb8-c84c-469c-a901-de345b464c60",
+      "front": "If I ask AI 'turn my project folder into a Git project', what happens to my folder?",
+      "back": "AI will create a hidden folder that lets Git start watching your files, but none of your files are being tracked yet.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+        "title": "Git - Getting a Git Repository",
+        "retrieved": "2026-10-01"
+      },
+      "evidence_quote": "This creates a new subdirectory named .git that contains all of your necessary repository files — a Git repository skeleton. At this point, nothing in your project is tracked yet.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+          "title": "English"
+        }
+      ]
+    },
+    {
+      "id": "26377a1e-c73a-4d37-bd87-f8c66d464410",
+      "lesson": 1,
+      "front": "If you tell Claude Code to make a new branch for your project, what does it actually do?",
+      "back": "It creates a small marker that just points to your current work, so you can try new things without touching your main work.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell",
+        "title": "Git - Branches in a Nutshell",
+        "retrieved": "2026-09-29"
+      },
+      "evidence_quote": "A branch in Git is simply a lightweight movable pointer to one of these commits.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell",
+          "title": "English"
+        }
+      ]
+    },
+    {
+      "id": "2ae437f6-4040-4b3b-84d7-11a424752203",
+      "front": "If I want AI to help me save my project folder's history with Git, what two options should I ask about?",
+      "back": "Ask AI: 'Should I turn my existing folder into a Git project, or should I copy someone else's Git project?' Both give you a working Git project on your computer.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+        "title": "Git - Getting a Git Repository",
+        "retrieved": "2026-10-01"
+      },
+      "evidence_quote": "You typically obtain a Git repository in one of two ways:",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+          "title": "English"
+        }
+      ]
+    },
+    {
+      "id": "2d5b6ecc-2e18-4805-8a1b-f3983c718d1a",
+      "front": "What happens to your actual files when you create a commit (save)?",
+      "back": "Nothing — a new snapshot is added to the history, but your current files remain unchanged.",
+      "authored": true,
+      "verified": true
+    },
+    {
+      "id": "48c49c43-ecb1-4760-9c6b-166a64ed38ab",
+      "front": "Why should you create a branch before trying a risky or experimental change?",
+      "back": "Because a branch is a parallel copy of the project, so experiments don't affect the trusted main version until you choose to merge them.",
+      "authored": true,
+      "verified": true
+    },
+    {
+      "id": "4bd972bc-7c12-400b-bca2-e1a5c5f132d1",
+      "lesson": 1,
+      "front": "If you ask Claude Code to save your project's history over time, what benefit do you get?",
+      "back": "You can go back and see or restore any old version of your work whenever you want, even if something breaks.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control",
+        "title": "Git - About Version Control",
+        "retrieved": "2026-09-29"
+      },
+      "evidence_quote": "Version control is a system that records changes to a file or set of files over time so that you can recall specific versions later.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/about",
+          "title": "About"
+        }
+      ]
+    },
+    {
+      "id": "583ec83c-0e6e-4d4a-b8b9-65e1ef0dc9d5",
+      "lesson": 1,
+      "front": "If I ask Claude Code to save a snapshot of my project using version control, what do I get?",
+      "back": "You get a safe copy of your work stored on your own computer, so you can always go back to it later even without internet access.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F",
+        "title": "Git - What is Git?",
+        "retrieved": "2026-09-29"
+      },
+      "evidence_quote": "Most operations in Git need only local files and resources to operate — generally no information is needed from another computer on your network.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/about",
+          "title": "About"
+        }
+      ]
+    },
+    {
+      "id": "5ee5e07e-b796-4c40-ba97-89ea530f31e8",
+      "front": "If I ask AI to check which files in my project have been saved into history and which are brand new, what should I ask it?",
+      "back": "Ask AI: 'Tell me which files are tracked (already known) and which are untracked (new and not yet known) in my project.'",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+        "title": "Git - Recording Changes to the Repository",
+        "retrieved": "2026-10-01"
+      },
+      "evidence_quote": "Remember that each file in your working directory can be in one of two states: tracked or untracked.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/docs",
+          "title": "Reference"
+        }
+      ]
+    },
+    {
+      "id": "604c2cf5-e586-4dcf-83c9-f18ea27b051d",
+      "lesson": 1,
+      "front": "If I want to try risky changes to my code without fear of losing my work, what should I ask Claude Code to set up?",
+      "back": "Ask it to use version control, since once your work is saved as a snapshot, it's very hard to lose it, so you can experiment freely.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F",
+        "title": "Git - What is Git?",
+        "retrieved": "2026-09-29"
+      },
+      "evidence_quote": "This makes using Git a joy because we know we can experiment without the danger of severely screwing things up.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/about",
+          "title": "About"
+        }
+      ]
+    },
+    {
+      "id": "63c2e6b8-1e76-4583-b568-0a3ae31a6d7d",
+      "lesson": 1,
+      "front": "If I want to work on my project even without internet access, what should I tell Claude Code to use?",
+      "back": "Tell it to use version control (like Git), since it lets you keep saving and reviewing your work fully offline.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F",
+        "title": "Git - What is Git?",
+        "retrieved": "2026-09-29"
+      },
+      "evidence_quote": "This also means that there is very little you can’t do if you’re offline or off VPN.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/about",
+          "title": "About"
+        }
+      ]
+    },
+    {
+      "id": "70254628-8f87-4fdb-9d3d-5eeb69fe9063",
+      "lesson": 1,
+      "front": "If my project uses version control, what happens if a file gets damaged or corrupted?",
+      "back": "The system can detect it right away, because every saved version is checked for accuracy automatically.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F",
+        "title": "Git - What is Git?",
+        "retrieved": "2026-09-29"
+      },
+      "evidence_quote": "Everything in Git is checksummed before it is stored and is then referred to by that checksum. This means it’s impossible to change the contents of any file or directory without Git knowing about it.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/about",
+          "title": "About"
+        }
+      ]
+    },
+    {
+      "id": "7fb335e8-aedd-4de7-bb42-5a0a4262ac1c",
+      "lesson": 1,
+      "front": "If I tell Claude Code to commit my project regularly, what benefit do I get compared to not using version control?",
+      "back": "You get a permanent, easy-to-restore history of your project, letting you undo mistakes and recover past versions much faster than tools that need to contact a remote server every time.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F",
+        "title": "Git - What is Git?",
+        "retrieved": "2026-09-29"
+      },
+      "evidence_quote": "Because you have the entire history of the project right there on your local disk, most operations seem almost instantaneous.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/about",
+          "title": "About"
+        }
+      ]
+    },
+    {
+      "id": "8322b710-eee4-449d-bca7-7599c1d88416",
+      "lesson": 1,
+      "front": "If you want to be able to undo mistakes and recover lost work, what should you ask Claude Code to set up?",
+      "back": "Ask it to set up version control (like Git) for your project, so nothing is ever truly lost.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control",
+        "title": "Git - About Version Control",
+        "retrieved": "2026-09-29"
+      },
+      "evidence_quote": "Using a VCS also generally means that if you screw things up or lose files, you can easily recover.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/about",
+          "title": "About"
+        }
+      ]
+    },
+    {
+      "id": "8c66c93b-5dc3-49bb-9ca8-1684db12d4f0",
+      "front": "What's the difference between discarding unsaved changes and reverting a saved commit?",
+      "back": "Discarding unsaved changes permanently erases that work; reverting a saved commit keeps it in history while adding a new commit that undoes it.",
+      "authored": true,
+      "verified": true
+    },
+    {
+      "id": "9f1ed9ca-bfa5-4071-997c-c25d61d1608c",
+      "front": "If AI shows me different kinds of web addresses (like https://, git://, or user@server) when cloning, what are these?",
+      "back": "These are just different delivery methods for getting the same project copy, like different mail carriers delivering the same package.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+        "title": "Git - Getting a Git Repository",
+        "retrieved": "2026-10-01"
+      },
+      "evidence_quote": "Git has a number of different transfer protocols you can use. The previous example uses the https:// protocol, but you may also see git:// or user@server:path/to/repo.git, which uses the SSH transfer protocol.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+          "title": "English"
+        }
+      ]
+    },
+    {
+      "id": "ac098b48-b135-49ce-b980-9f999fc45a04",
+      "front": "If I want a full copy of someone else's project with all its history, what should I ask AI to do instead of just 'download it'?",
+      "back": "Ask AI to 'clone' the project, not just 'check it out'. Cloning gives you the whole history, not just the current files.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+        "title": "Git - Getting a Git Repository",
+        "retrieved": "2026-10-01"
+      },
+      "evidence_quote": "instead of getting just a working copy, Git receives a full copy of nearly all data that the server has. Every version of every file for the history of the project is pulled down by default when you run git clone.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+          "title": "English"
+        }
+      ]
+    },
+    {
+      "id": "ae0661a1-fae4-4918-9dcf-d1b52c51afc3",
+      "lesson": 1,
+      "front": "Why can Claude Code create new branches for you almost instantly with no slowdown?",
+      "back": "Because a branch is just a tiny file recording where you are, not a full copy of your whole project.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell",
+        "title": "Git - Branches in a Nutshell",
+        "retrieved": "2026-09-29"
+      },
+      "evidence_quote": "Creating a new branch is as quick and simple as writing 41 bytes to a file (40 characters and a newline).",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell",
+          "title": "English"
+        }
+      ]
+    },
+    {
+      "id": "e3b498f9-858c-462a-9a41-3cfdc2e4543f",
+      "front": "If I want the copied project to be saved in a folder with a different name than the original, what should I ask AI?",
+      "back": "Ask AI: 'Clone this project, but put it in a folder called [my chosen name] instead of the project's default name.'",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+        "title": "Git - Getting a Git Repository",
+        "retrieved": "2026-10-01"
+      },
+      "evidence_quote": "If you want to clone the repository into a directory named something other than libgit2, you can specify the new directory name as an additional argument",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+          "title": "English"
+        }
+      ]
+    },
+    {
+      "id": "e3c82cae-d65c-479a-8f76-2d05bb4abb48",
+      "lesson": 1,
+      "front": "If you want to safely experiment with changes to your program without messing up your working version, what should you tell Claude Code to do?",
+      "back": "Tell it to create a new branch first, so your experiments stay separate from your main code.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell",
+        "title": "Git - Branches in a Nutshell",
+        "retrieved": "2026-09-29"
+      },
+      "evidence_quote": "Branching means you diverge from the main line of development and continue to do work without messing with that main line.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell",
+          "title": "English"
+        }
+      ]
+    },
+    {
+      "id": "fbb2c820-a9b7-4b21-8a4f-2862d2c84f1c",
+      "lesson": 1,
+      "front": "If you want to know which branch you're currently working on, what is Claude Code keeping track of behind the scenes?",
+      "back": "A special marker called HEAD, which always points to the branch you're currently using.",
+      "source": {
+        "url": "https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell",
+        "title": "Git - Branches in a Nutshell",
+        "retrieved": "2026-09-29"
+      },
+      "evidence_quote": "How does Git know what branch you’re currently on? It keeps a special pointer called HEAD.",
+      "verified": true,
+      "related_links": [
+        {
+          "url": "https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell",
+          "title": "English"
+        }
+      ]
+    }
+  ]
+}

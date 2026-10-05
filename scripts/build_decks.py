@@ -31,6 +31,14 @@ an id and link to it as '#/that-id':
 
     - [Back to Pick a Game](#/pick-a-game)
 
+Two directives pull in files that sit next to content.md (see README.md,
+"Review"):
+
+    [[story: git-story.md | git-story]]   # alone in its own '---' block: expands into
+                                          # a run of slides; the optional "| id" is
+                                          # the first slide's anchor (#/git-story)
+    [[flashcards: git.json]]              # inside a slide: a flashcard practice widget
+
 Rerun after editing any content.md:
 
     python scripts/build_decks.py        # all sessions
@@ -38,6 +46,7 @@ Rerun after editing any content.md:
     python scripts/build_decks.py 1 3    # just session-01 and session-03
 """
 
+import json
 import os
 import re
 import sys
@@ -153,6 +162,7 @@ def inline_markdown(text):
     text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
     text = re.sub(r"(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)", r"<em>\1</em>", text)
     text = re.sub(r"`(.+?)`", r"<code>\1</code>", text)
+    text = re.sub(r"\\(?:\s+|$)", "<br>", text)  # trailing backslash = line break
     return text
 
 
@@ -203,6 +213,12 @@ def render_bullet_tree(nodes, indent="        "):
 
 HEADING_ID_RE = re.compile(r"\s*\{#([a-zA-Z0-9_-]+)\}\s*$")
 DIAGRAM_RE = re.compile(r"^\[\[diagram-left:\s*([^|]+?)\s*\|\s*(.+?)\]\]$")
+STORY_RE = re.compile(r"^\[\[story:\s*([^|\]]+?)\s*(?:\|\s*([a-zA-Z0-9_-]+)\s*)?\]\]$")
+FLASHCARDS_RE = re.compile(r"^\[\[flashcards:\s*([^\]]+?)\s*\]\]$")
+
+# Rough per-slide budget for [[story: ...]] pagination. The build can't measure
+# rendered height, so this is a guide only -- the red dots in the deck confirm.
+STORY_CHAR_BUDGET = 700
 
 
 def extract_heading_id(heading_text):
@@ -245,10 +261,37 @@ def split_into_groups(raw_lines):
     return groups
 
 
-def render_body(raw_lines):
+NUMBERED_RE = re.compile(r"^\d+\.\s+(\S.*)$")
+
+
+def split_table_row(line):
+    return [c.strip() for c in line.strip().strip("|").split("|")]
+
+
+def render_table(rows):
+    """Markdown pipe table (header row, '|---|---|' separator, body rows)."""
+    header = None
+    if len(rows) > 1 and re.match(r"^\|?[\s:|-]+\|?$", rows[1]):
+        header = split_table_row(rows[0])
+        rows = rows[2:]
+    parts = ['        <table>']
+    if header:
+        cells = "".join(f"<th>{inline_markdown(c)}</th>" for c in header)
+        parts.append(f"          <thead><tr>{cells}</tr></thead>")
+    parts.append("          <tbody>")
+    for row in rows:
+        cells = "".join(f"<td>{inline_markdown(c)}</td>" for c in split_table_row(row))
+        parts.append(f"            <tr>{cells}</tr>")
+    parts.extend(["          </tbody>", "        </table>"])
+    return "\n".join(parts)
+
+
+def render_body(raw_lines, ctx=None):
     html_parts = []
     bullet_run = []
     quote_run = []
+    numbered_run = []
+    table_run = []
     diagram_open = False
 
     def flush_list():
@@ -265,13 +308,34 @@ def render_body(raw_lines):
             html_parts.append(f"        <blockquote>\n{paras}\n        </blockquote>")
             quote_run.clear()
 
+    def flush_numbered():
+        if numbered_run:
+            items = "\n".join(f"          <li>{t}</li>" for t in numbered_run)
+            html_parts.append(f"        <ol>\n{items}\n        </ol>")
+            numbered_run.clear()
+
+    def flush_table():
+        if table_run:
+            html_parts.append(render_table(table_run))
+            table_run.clear()
+
+    def flush_all():
+        flush_list()
+        flush_quote()
+        flush_numbered()
+        flush_table()
+
     for raw_line in raw_lines:
         stripped = raw_line.strip()
         bullet = match_bullet(raw_line)
         diagram = DIAGRAM_RE.match(stripped)
-        if diagram:
-            flush_list()
-            flush_quote()
+        flashcards = FLASHCARDS_RE.match(stripped)
+        numbered = NUMBERED_RE.match(stripped)
+        if flashcards:
+            flush_all()
+            html_parts.extend(render_flashcards(flashcards.group(1), ctx))
+        elif diagram:
+            flush_all()
             image_url, image_alt = diagram.groups()
             html_parts.extend([
                 '        <div class="diagram-layout">',
@@ -282,26 +346,37 @@ def render_body(raw_lines):
             ])
             diagram_open = True
         elif stripped.startswith("### "):
-            flush_list()
-            flush_quote()
+            flush_all()
             heading, heading_id = extract_heading_id(stripped[4:].strip())
             id_attribute = f' id="{heading_id}"' if heading_id else ""
             html_parts.append(
                 f"        <h3{id_attribute}>{inline_markdown(heading)}</h3>"
             )
+        elif stripped.startswith("|"):
+            flush_list()
+            flush_quote()
+            flush_numbered()
+            table_run.append(stripped)
+        elif numbered:
+            flush_list()
+            flush_quote()
+            flush_table()
+            numbered_run.append(inline_markdown(numbered.group(1)))
         elif bullet is not None:
             flush_quote()
+            flush_numbered()
+            flush_table()
             level, text = bullet
             bullet_run.append((level, inline_markdown(text)))
         elif stripped.startswith("> "):
             flush_list()
+            flush_numbered()
+            flush_table()
             quote_run.append(inline_markdown(stripped[2:].strip()))
         else:
-            flush_list()
-            flush_quote()
+            flush_all()
             html_parts.append(f"        <p>{inline_markdown(stripped)}</p>")
-    flush_list()
-    flush_quote()
+    flush_all()
     if diagram_open:
         html_parts.extend([
             '          </div>',
@@ -311,7 +386,7 @@ def render_body(raw_lines):
     return html_parts
 
 
-def parse_content_block(raw_lines):
+def parse_content_block(raw_lines, ctx=None):
     """Parse one '---'-separated block (after the title block) into HTML.
     Supports more than one '## ' heading per block, each becoming its own
     headed subsection stacked on the same slide. Returns (html, slide_id) --
@@ -323,9 +398,193 @@ def parse_content_block(raw_lines):
             slide_id = heading_id
         if heading:
             html_parts.append(f"        <h2>{inline_markdown(heading)}</h2>")
-        html_parts.extend(render_body(body))
+        html_parts.extend(render_body(body, ctx))
 
     return "\n".join(html_parts), slide_id
+
+
+def read_session_file(filename, ctx, what):
+    path = os.path.join(ctx["folder"], filename)
+    if not os.path.isfile(path):
+        raise ValueError(f"{what} file not found: {filename} (looked in {ctx['folder']})")
+    with open(path, encoding="utf-8") as f:
+        return f.read()
+
+
+def render_flashcards(filename, ctx):
+    """[[flashcards: deck.json]] -> a host <div> with the deck embedded as JSON
+    (never fetched at runtime, so decks keep working from file://).
+    assets/js/flashcards.js turns it into the practice widget."""
+    if ctx is None:
+        return []
+    try:
+        deck = json.loads(read_session_file(filename, ctx, "flashcards"))
+    except json.JSONDecodeError as e:
+        raise ValueError(f"flashcards file {filename} is not valid JSON: {e}")
+    if not isinstance(deck, dict) or not isinstance(deck.get("deckId"), str) or not deck["deckId"]:
+        raise ValueError(f"flashcards file {filename}: missing 'deckId'")
+    cards = deck.get("cards")
+    if not isinstance(cards, list) or not cards:
+        raise ValueError(f"flashcards file {filename}: 'cards' must be a non-empty list")
+    slim_cards = []
+    for i, card in enumerate(cards):
+        if not isinstance(card, dict) or not all(
+            isinstance(card.get(k), str) and card.get(k) for k in ("id", "front", "back")
+        ):
+            raise ValueError(
+                f"flashcards file {filename}: card {i + 1} needs string 'id', 'front' and 'back'"
+            )
+        slim = {"id": card["id"], "front": card["front"], "back": card["back"]}
+        source = card.get("source")
+        if isinstance(source, dict) and (source.get("title") or source.get("url")):
+            slim["source"] = {"title": source.get("title") or "", "url": source.get("url") or ""}
+        slim_cards.append(slim)
+    title = deck.get("title")
+    slim_deck = {
+        "deckId": deck["deckId"],
+        "title": title if isinstance(title, str) and title else deck["deckId"],
+        "cards": slim_cards,
+    }
+    # '</' must not appear inside the <script> element.
+    payload = json.dumps(slim_deck, ensure_ascii=False).replace("</", "<\\/")
+    ctx["flashcards"] = True
+    return [
+        f'        <div class="flashcards" data-deck-id="{escape_html(deck["deckId"])}">',
+        f'          <script type="application/json" class="flashcards-data">{payload}</script>',
+        "          <noscript>Flash cards need JavaScript.</noscript>",
+        "        </div>",
+    ]
+
+
+def table_units(rows):
+    """Split a long pipe table into chunks that fit STORY_CHAR_BUDGET, each
+    repeating the header row."""
+    has_header = len(rows) > 1 and re.match(r"^\|?[\s:|-]+\|?$", rows[1])
+    header = rows[:2] if has_header else []
+    body = rows[2:] if has_header else rows
+    units, chunk, size = [], [], 0
+    for row in body:
+        if chunk and size + len(row) > STORY_CHAR_BUDGET:
+            units.append(header + chunk)
+            chunk, size = [], 0
+        chunk.append(row)
+        size += len(row)
+    if chunk:
+        units.append(header + chunk)
+    return units
+
+
+def story_sections(md_text):
+    """Story markdown -> [(heading_or_None, [unit, ...])], where each unit is a
+    list of lines ready for render_body() and is never split across slides.
+    '#'/'##' headings start a new section. A unit is a text paragraph, one
+    quoted paragraph (bare '>' lines separate quoted paragraphs), a whole
+    bullet / numbered list, a table, or a '###' heading. A '---' line is just
+    a break."""
+    sections = [(None, [])]
+    kind = None
+    buf = []
+
+    def flush():
+        nonlocal kind
+        if buf:
+            if kind == "text":
+                unit = [" ".join(buf)]
+            elif kind == "quote":
+                unit = ["> " + " ".join(buf)]
+            elif kind == "bullet":
+                # One unit per item: consecutive items still share a slide, but
+                # a long list can paginate.
+                for line in buf:
+                    sections[-1][1].append([line])
+                unit = None
+            elif kind == "table":
+                sections[-1][1].extend(table_units(buf))
+                unit = None
+            else:
+                unit = list(buf)
+            if unit:
+                sections[-1][1].append(unit)
+        buf.clear()
+        kind = None
+
+    for raw in md_text.splitlines():
+        stripped = raw.strip()
+        heading = re.match(r"^#{1,2}\s+(.+)$", stripped)
+        if heading:
+            flush()
+            sections.append((extract_heading_id(heading.group(1).strip())[0], []))
+            continue
+        if not stripped or re.match(r"^-{3,}$", stripped):
+            flush()
+            continue
+        if stripped.startswith("### "):
+            flush()
+            sections[-1][1].append([stripped])
+            continue
+        if stripped.startswith(">"):
+            content = stripped[1:].strip()
+            if not content:
+                flush()
+                continue
+            line_kind, line = "quote", content
+        elif stripped.startswith("|"):
+            line_kind, line = "table", stripped
+        elif NUMBERED_RE.match(stripped):
+            line_kind, line = "ol", raw
+        elif match_bullet(raw):
+            line_kind, line = "bullet", raw
+        else:
+            line_kind, line = "text", stripped
+        if line_kind != kind:
+            flush()
+            kind = line_kind
+        buf.append(line)
+    flush()
+    return [sec for sec in sections if sec[0] is not None or sec[1]]
+
+
+def story_slides(filename, anchor, ctx):
+    """[[story: file.md | anchor]] -> [(html, slide_id)], paginated by paragraph
+    against STORY_CHAR_BUDGET. Never splits a paragraph; repeats the heading
+    with ' (cont.)' on continuation slides."""
+    if ctx is None:
+        return []
+    slides = []
+    for heading, paras in story_sections(read_session_file(filename, ctx, "story")):
+        # A '###' heading is glued to the unit after it, so it can't be left
+        # stranded at the bottom of a slide.
+        glued = []
+        for para in paras:
+            if glued and len(glued[-1]) == 1 and glued[-1][0].startswith("### "):
+                glued[-1] = glued[-1] + para
+            else:
+                glued.append(para)
+        paras = glued
+        chunks, current, size = [], [], 0
+        for para in paras:
+            n = sum(len(line) for line in para)
+            starts_topic = para[0].startswith("### ")
+            if current and (starts_topic or size + n > STORY_CHAR_BUDGET):
+                chunks.append(current)
+                current, size = [], 0
+            current.append(para)
+            size += n
+        if current or not chunks:
+            chunks.append(current)
+        for i, chunk in enumerate(chunks):
+            parts = []
+            if heading:
+                title = heading + (" (cont.)" if i else "")
+                parts.append(f"        <h2>{inline_markdown(title)}</h2>")
+            parts.extend(render_body([line for para in chunk for line in para], ctx))
+            slides.append(["\n".join(parts), None])
+    if not slides:
+        print(f"  WARNING: story file {filename} is empty -- inserting a placeholder slide")
+        slides.append(["        <h2>Story coming soon</h2>", None])
+    if anchor:
+        slides[0][1] = anchor
+    return [tuple(s) for s in slides]
 
 
 SEPARATOR_RE = re.compile(r"^-{3,}$")
@@ -346,7 +605,10 @@ def split_into_blocks(md_text):
     return blocks
 
 
-def parse_markdown(md_text):
+def parse_markdown(md_text, folder=None):
+    """Returns (topic, content_slides, uses_flashcards). Directives that read
+    files ([[story:]], [[flashcards:]]) are only expanded when `folder` (the
+    session folder) is given -- the master index just needs the topic."""
     blocks = split_into_blocks(md_text.strip())
     title_block = blocks[0].strip()
     match = re.search(r"^#\s+(.+)$", title_block, re.MULTILINE)
@@ -354,8 +616,26 @@ def parse_markdown(md_text):
         raise ValueError("content.md must start with a '# Session N: Topic' heading")
     topic = inline_markdown(match.group(1).strip())
 
-    content_slides = [parse_content_block(b.splitlines()) for b in blocks[1:]]
-    return topic, content_slides
+    ctx = {"folder": folder, "flashcards": False} if folder else None
+    content_slides = []
+    for block in blocks[1:]:
+        lines = block.splitlines()
+        stories = [m for m in (STORY_RE.match(l.strip()) for l in lines) if m]
+        if stories:
+            others = [l for l in lines if l.strip() and not STORY_RE.match(l.strip())]
+            if others or len(stories) > 1:
+                raise ValueError(
+                    "[[story: ...]] must be the only thing in its '---' block "
+                    f"(found other content next to {stories[0].group(0)})"
+                )
+            # The whole story is one vertical stack: a single left/right
+            # position in the deck, stepped through with up/down.
+            stack = story_slides(stories[0].group(1), stories[0].group(2), ctx)
+            if stack:
+                content_slides.append({"stack": stack})
+        else:
+            content_slides.append(parse_content_block(lines, ctx))
+    return topic, content_slides, bool(ctx and ctx["flashcards"])
 
 
 def render_section(background, inner_html, extra_class="", section_id=None):
@@ -364,7 +644,7 @@ def render_section(background, inner_html, extra_class="", section_id=None):
     return f'      <section{cls}{sid} data-background-image="../../assets/images/{background}">\n{inner_html}\n      </section>'
 
 
-def build_deck_html(session_num, topic, content_slides, background):
+def build_deck_html(session_num, topic, content_slides, background, uses_flashcards=False):
     slide_url = f"{PUBLIC_BASE_URL}/sessions/{SESSION_SLUGS[session_num]}/"
     title_slide_inner = f"""        <div class="title-slide-top">
           <p class="course-title">{COURSE_TITLE}</p>
@@ -383,12 +663,27 @@ def build_deck_html(session_num, topic, content_slides, background):
 
     sections = [render_section(background, title_slide_inner, extra_class="title-slide")]
 
-    for slide_html, slide_id in content_slides:
+    for entry in content_slides:
+        if isinstance(entry, dict):
+            # Vertical stack (a [[story:]]): outer <section> holding one inner
+            # <section> per slide, so reveal.js navigates them with up/down.
+            inner = []
+            for slide_html, slide_id in entry["stack"]:
+                wrapped = f'        <div class="slide-content">\n{slide_html}\n        </div>'
+                inner.append(render_section(background, wrapped, section_id=slide_id))
+            sections.append(
+                '      <section class="story-stack">\n' + "\n".join(inner) + "\n      </section>"
+            )
+            continue
+        slide_html, slide_id = entry
         wrapped = f'        <div class="slide-content">\n{slide_html}\n        </div>'
         sections.append(render_section(background, wrapped, section_id=slide_id))
 
     sections_html = "\n\n".join(sections)
 
+    flashcards_script = (
+        '  <script src="../../assets/js/flashcards.js"></script>\n' if uses_flashcards else ""
+    )
     overlay = SESSION_OVERLAYS.get(session_num)
     overlay_style = f'\n  <style>:root {{ --overlay: {overlay}; }}</style>' if overlay else ""
 
@@ -412,7 +707,7 @@ def build_deck_html(session_num, topic, content_slides, background):
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
-  <script src="../../assets/js/deck.js"></script>
+{flashcards_script}  <script src="../../assets/js/deck.js"></script>
 </body>
 </html>
 """
@@ -484,7 +779,7 @@ def build_master_index():
             with open(md_path, encoding="utf-8") as f:
                 md_text = f.read()
             try:
-                topic, _ = parse_markdown(md_text)
+                topic, _, _ = parse_markdown(md_text)
                 topic = leading_session_re.sub("", topic)
             except Exception:
                 pass
@@ -530,8 +825,10 @@ def main():
             md_text = f.read()
 
         try:
-            topic, content_slides = parse_markdown(md_text)
-            html = build_deck_html(num, topic, content_slides, SESSION_BACKGROUNDS[num])
+            topic, content_slides, uses_flashcards = parse_markdown(md_text, folder)
+            html = build_deck_html(
+                num, topic, content_slides, SESSION_BACKGROUNDS[num], uses_flashcards
+            )
         except Exception as e:
             print(f"{dir_name}: FAILED -- {e}")
             failures.append(num)
