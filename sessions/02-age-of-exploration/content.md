@@ -119,6 +119,8 @@ Details are subject to change at any time
 - **Get started:** [aka.ms/copilot-vscode](https://aka.ms/copilot-vscode)
 - Explore topics: IDE integration, tooling workflows, Copilot pricing
 
+---
+
 ## GitHub Copilot {#GitHub-Copilot}
 
 **GitHub Copilot** is an AI coding partner built into the tools many developers already use. It offers deep integration with **VS Code, Visual Studio, GitHub, and Azure**, providing inline code suggestions, repo-aware reasoning, pull request help, and command-line workflows.
